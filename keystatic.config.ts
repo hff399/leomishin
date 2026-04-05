@@ -1,13 +1,11 @@
 import { config, fields, collection } from "@keystatic/core";
+import { block } from "@keystatic/core/content-components";
 
 const isProd = process.env.NODE_ENV === "production";
 
 export default config({
   storage: isProd
-    ? {
-        kind: "github",
-        repo: { owner: "hff399", name: "leomishin" },
-      }
+    ? { kind: "github", repo: { owner: "hff399", name: "leomishin" } }
     : { kind: "local" },
   ui: {
     brand: { name: "Leo Mishin" },
@@ -38,6 +36,74 @@ export default config({
         date: fields.date({ label: "Date" }),
         content: fields.mdx({
           label: "Content",
+          components: {
+            BarChart: block({
+              label: "Bar Chart",
+              schema: {
+                caption: fields.text({ label: "Caption" }),
+                color: fields.text({ label: "Color", defaultValue: "#171717" }),
+                data: fields.array(
+                  fields.object({
+                    label: fields.text({ label: "Label" }),
+                    value: fields.number({ label: "Value" }),
+                  }),
+                  { label: "Data", itemLabel: (props) => props.fields.label.value }
+                ),
+              },
+            }),
+            LineChart: block({
+              label: "Line Chart",
+              schema: {
+                caption: fields.text({ label: "Caption" }),
+                color: fields.text({ label: "Color", defaultValue: "#171717" }),
+                data: fields.array(
+                  fields.object({
+                    label: fields.text({ label: "Label" }),
+                    value: fields.number({ label: "Value" }),
+                  }),
+                  { label: "Data", itemLabel: (props) => props.fields.label.value }
+                ),
+              },
+            }),
+            PostImage: block({
+              label: "Image",
+              schema: {
+                src: fields.text({ label: "Image URL" }),
+                alt: fields.text({ label: "Alt text" }),
+                caption: fields.text({ label: "Caption" }),
+              },
+            }),
+            Callout: block({
+              label: "Callout",
+              schema: {
+                type: fields.select({
+                  label: "Type",
+                  options: [
+                    { label: "Info", value: "info" },
+                    { label: "Warning", value: "warning" },
+                    { label: "Tip", value: "tip" },
+                  ],
+                  defaultValue: "info",
+                }),
+                text: fields.text({ label: "Text", multiline: true }),
+              },
+            }),
+            YouTubeEmbed: block({
+              label: "YouTube Video",
+              schema: {
+                url: fields.text({ label: "YouTube URL or Video ID" }),
+                caption: fields.text({ label: "Caption" }),
+                mode: fields.select({
+                  label: "Mode",
+                  options: [
+                    { label: "Embed (plays inline)", value: "embed" },
+                    { label: "Redirect to YouTube", value: "redirect" },
+                  ],
+                  defaultValue: "embed",
+                }),
+              },
+            }),
+          },
         }),
       },
     }),

@@ -9,6 +9,10 @@ import BarChart from "@/app/components/mdx/BarChart";
 import LineChart from "@/app/components/mdx/LineChart";
 import Callout from "@/app/components/mdx/Callout";
 import PostImage from "@/app/components/mdx/PostImage";
+import YouTubeEmbed from "@/app/components/mdx/YouTubeEmbed";
+
+export const revalidate = 60;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -40,6 +44,7 @@ const mdxComponents = {
   LineChart,
   Callout,
   PostImage,
+  YouTubeEmbed,
 };
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

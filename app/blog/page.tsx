@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
 import BlogClient from "./BlogClient";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Writing — Leo Mishin",
   description: "What I'm thinking about, building, and learning. Published when it's worth saying.",
