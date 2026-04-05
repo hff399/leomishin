@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 /* ───────────────────────────── Data ──────────────────────────────────────── */
@@ -11,23 +11,35 @@ const socialLinks = [
   { label: "YouTube", href: "https://youtube.com/@leomishin" },
 ];
 
-const clients = [
-  { name: "Denis Shatalin", role: "YouTube & LinkedIn", initials: "DS", bg: "#ebebeb" },
-  { name: "B2B SaaS Co.", role: "YouTube Growth", initials: "SaaS", bg: "#dce8f5" },
-  { name: "Software Agency", role: "LinkedIn Content", initials: "AG", bg: "#f5dce8" },
-  { name: "Consulting Firm", role: "Content Strategy", initials: "CO", bg: "#dcebd5" },
-  { name: "Course Platform", role: "YouTube & X", initials: "EDU", bg: "#f5ead0" },
-  { name: "Startup Founder", role: "Organic Growth", initials: "SF", bg: "#e5daf5" },
+const projects = [
+  { name: "mono.ge", role: "AI Legal Platform", initials: "M", bg: "#dce8f5", href: "https://mono.ge" },
+  { name: "Scale with Content", role: "Content & Growth", initials: "SWC", bg: "#e8e8e8", href: "https://scalewithcontent.com" },
+  { name: "Merchant AI", role: "AI Media Tool", initials: "MAI", bg: "#e5daf5", href: "https://merchantai.com" },
 ];
 
 const experience = [
   {
-    period: "2023",
-    role: "Founder & CEO at",
-    company: "ScaleWithContent",
+    period: "2023 –",
+    role: "Founder at",
+    company: "Scale with Content",
     href: "https://scalewithcontent.com",
   },
+  {
+    period: "2024 –",
+    role: "Founder at",
+    company: "Merchant AI",
+    href: "https://merchantai.com",
+  },
+  {
+    period: "2025 –",
+    role: "Founder at",
+    company: "mono.ge",
+    href: "https://mono.ge",
+  },
 ];
+
+const QUOTE = "AI is eating the world. Don't be eaten.";
+const SIG = "— Leo Mishin";
 
 /* ───────────────────────────── Dots ──────────────────────────────────────── */
 
@@ -41,13 +53,9 @@ function Dots() {
   );
 }
 
-/* ──────────────────────────── Client Card ────────────────────────────────── */
+/* ──────────────────────────── Project Card ───────────────────────────────── */
 
-function ClientCard({
-  client,
-}: {
-  client: (typeof clients)[number];
-}) {
+function ProjectCard({ project }: { project: (typeof projects)[number] }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -82,53 +90,68 @@ function ClientCard({
           >
             <div
               style={{
-                fontFamily: "var(--font-eb-garamond), ui-serif, Georgia, serif",
+                fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
                 fontSize: 20,
                 color: "#f5f5f5",
-                lineHeight: "28px",
+                lineHeight: "24px",
+                marginBottom: 4,
               }}
             >
-              {client.name}
+              {project.name}
             </div>
             <div
               style={{
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                fontFamily: "var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.24px",
                 color: "#a1a1aa",
-                marginTop: 2,
+                lineHeight: "20px",
               }}
             >
-              {client.role}
+              {project.role}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Card body */}
-      <div
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noopener noreferrer"
         style={{
-          width: 80,
-          height: 80,
-          border: "1px solid #e5e5e5",
-          borderRadius: 16,
-          padding: 20,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          transition: "background 300ms",
+          width: 80,
+          height: 80,
+          borderRadius: 16,
+          transition: "background 500ms cubic-bezier(.6,.6,0,1)",
           background: hovered ? "#e5e5e5" : "transparent",
           position: "relative",
+          textDecoration: "none",
         }}
       >
+        {/* Inset border overlay — matches reference ::before pattern */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: 16,
+            border: "1px solid #e5e5e5",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+
+        {/* Inner initials badge — slides up on hover */}
         <div
           style={{
             width: 44,
             height: 44,
             borderRadius: 12,
-            background: client.bg,
+            background: project.bg,
             border: "1px solid rgba(0,0,0,0.06)",
             display: "flex",
             alignItems: "center",
@@ -137,65 +160,47 @@ function ClientCard({
             fontSize: 10,
             fontWeight: 500,
             color: "#555",
+            position: "relative",
+            zIndex: 10,
+            transform: hovered ? "translateY(-6px)" : "translateY(0)",
+            transition: "transform 500ms cubic-bezier(.6,.6,0,1)",
           }}
         >
-          {client.initials}
+          {project.initials}
         </div>
 
-        {/* Arrow icon on hover */}
-        <AnimatePresence>
-          {hovered && (
-            <motion.svg
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.15 }}
-              width={18}
-              height={18}
-              viewBox="0 0 20 20"
-              fill="none"
-              style={{
-                position: "absolute",
-                bottom: 4,
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            >
-              <path
-                d="M7.5 12.5L13.5 6.5M13.5 6.5V11.5M13.5 6.5H8.5"
-                stroke="#a1a1aa"
-                strokeWidth={1.2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </motion.svg>
-          )}
-        </AnimatePresence>
-      </div>
+        {/* Arrow — appears at bottom on hover */}
+        <svg
+          viewBox="0 0 20 20"
+          width={20}
+          style={{
+            position: "absolute",
+            bottom: 2,
+            left: "calc(50% - 10px)",
+            transform: hovered ? "translateY(0)" : "translateY(4px)",
+            opacity: hovered ? 1 : 0,
+            transition: "opacity 500ms cubic-bezier(.6,.6,0,1), transform 500ms cubic-bezier(.6,.6,0,1)",
+            fill: "none",
+            zIndex: 10,
+          }}
+        >
+          <path
+            d="M7.5 12.5L13.5 6.5M13.5 6.5V11.5M13.5 6.5H8.5"
+            stroke="#a1a1aa"
+            strokeWidth={1.2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </a>
     </div>
-  );
-}
-
-/* ──────────────────────────── External Arrow ─────────────────────────────── */
-
-function ExternalArrow({ size = 12, color = "white" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-      <path
-        d="M7.5 12.5L13.5 6.5M13.5 6.5V11.5M13.5 6.5H8.5"
-        stroke={color}
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 
 /* ───────────────────────────── Page ──────────────────────────────────────── */
 
 export default function LeomishinPage() {
-  /* Social links pill ---------------------------------------------------- */
+  /* Social links pill */
   const containerRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [pill, setPill] = useState({ left: 0, width: 0, visible: false });
@@ -213,21 +218,42 @@ export default function LeomishinPage() {
     setPill({ left: lRect.left - cRect.left, width: lRect.width, visible: true });
   }, []);
 
-  /* Bottom nav pill ------------------------------------------------------ */
-  const aboutRef = useRef<HTMLAnchorElement>(null);
-  const navGroupRef = useRef<HTMLDivElement>(null);
-  const [navPill, setNavPill] = useState({ left: 0, width: 0 });
+  /* Typewriter for handwriting section */
+  const quoteRef = useRef<HTMLDivElement>(null);
+  const [quoteText, setQuoteText] = useState("");
+  const [sigText, setSigText] = useState("");
+  const started = useRef(false);
 
   useEffect(() => {
-    const about = aboutRef.current;
-    const group = navGroupRef.current;
-    if (!about || !group) return;
-    const gRect = group.getBoundingClientRect();
-    const aRect = about.getBoundingClientRect();
-    setNavPill({ left: aRect.left - gRect.left, width: aRect.width });
+    const el = quoteRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started.current) {
+          started.current = true;
+          let i = 0;
+          const quoteTimer = setInterval(() => {
+            i++;
+            setQuoteText(QUOTE.slice(0, i));
+            if (i >= QUOTE.length) {
+              clearInterval(quoteTimer);
+              let j = 0;
+              const sigTimer = setInterval(() => {
+                j++;
+                setSigText(SIG.slice(0, j));
+                if (j >= SIG.length) clearInterval(sigTimer);
+              }, 50);
+            }
+          }, 38);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  /* Shared styles -------------------------------------------------------- */
+  /* Shared styles */
   const baseFontStyle: React.CSSProperties = {
     fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
     fontSize: 14,
@@ -236,9 +262,7 @@ export default function LeomishinPage() {
     WebkitFontSmoothing: "antialiased",
   };
 
-  const serifFont = "var(--font-eb-garamond), ui-serif, Georgia, serif";
-
-  /* Blur layers ---------------------------------------------------------- */
+  const serifFont = "var(--font-instrument-serif), ui-serif, Georgia, serif";
   const blurLayers = [1, 2, 3, 6, 8];
 
   return (
@@ -272,8 +296,8 @@ export default function LeomishinPage() {
               inset: 0,
               backdropFilter: `blur(${blur}px)`,
               WebkitBackdropFilter: `blur(${blur}px)`,
-              maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+              maskImage: "linear-gradient(#000 0%, #0000 100%)",
+              WebkitMaskImage: "linear-gradient(#000 0%, #0000 100%)",
             }}
           />
         ))}
@@ -299,25 +323,23 @@ export default function LeomishinPage() {
               inset: 0,
               backdropFilter: `blur(${blur}px)`,
               WebkitBackdropFilter: `blur(${blur}px)`,
-              maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to top, black 0%, transparent 100%)",
+              maskImage: "linear-gradient(#0000 0%, #000 100%)",
+              WebkitMaskImage: "linear-gradient(#0000 0%, #000 100%)",
             }}
           />
         ))}
       </div>
 
       {/* ── Main content ── */}
-      <div style={{ maxWidth: 448, margin: "0 auto", padding: "0 24px 288px" }}>
-        {/* ── Hero section ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+      <div style={{ maxWidth: 580, margin: "0 auto", padding: "0 24px 288px" }}>
+
+        {/* ── Hero ── */}
+        <div
           style={{
             paddingTop: 80,
             display: "flex",
             flexWrap: "wrap",
-            gap: "0 8px",
+            columnGap: 8,
             alignItems: "baseline",
             fontFamily: serifFont,
             fontSize: 36,
@@ -328,46 +350,56 @@ export default function LeomishinPage() {
           <span style={{ color: "#737373" }}>Hey,</span>
           <span>I&apos;m</span>
 
-          {/* Avatar */}
-          <span
+          {/* Avatar badge */}
+          <div
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 56,
-              height: 56,
+              display: "inline-block",
               verticalAlign: "middle",
               position: "relative",
-              top: 6,
+              top: 3,
+              marginLeft: 2,
+              marginRight: 2,
+              width: 48,
+              height: 38,
+              borderRadius: 10,
+              overflow: "hidden",
+              flexShrink: 0,
+              userSelect: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.1), inset 0 0 0 2px rgba(255,255,255,0.08)",
             }}
           >
-            <span
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Leo Mishin avatar"
+              src="/avatar.jpg"
               style={{
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #d0d0d0, #b8b8b8)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#666",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "55% 15%",
+                display: "block",
               }}
-            >
-              LM
-            </span>
-          </span>
+            />
+            {/* Inner border with inset padding */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 1,
+                borderRadius: 8,
+                border: "1px solid rgba(255,255,255,0.35)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
 
           <span>Leo</span>
 
-          {/* Line break */}
+          {/* One explicit line break — everything else flows naturally */}
           <div style={{ width: "100%" }} />
 
-          {/* Gradient "a strategist" */}
+          {/* Gradient text */}
           <span style={{ position: "relative", display: "inline-block" }}>
-            <span className="hero-gradient-text">a strategist</span>
+            <span className="hero-gradient-text">entrepreneur</span>
             <span
               aria-hidden="true"
               className="hero-gradient-text"
@@ -379,74 +411,168 @@ export default function LeomishinPage() {
                 opacity: 0.5,
                 filter: "blur(14px)",
                 pointerEvents: "none",
+                width: "max-content",
               }}
             >
-              a strategist
+              entrepreneur
             </span>
           </span>
-
-          <span style={{ color: "#737373" }}>at</span>
-
-          {/* SWC logo */}
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 44,
-              height: 56,
-              verticalAlign: "middle",
-              position: "relative",
-              top: 6,
-            }}
-          >
-            <span
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: 10,
-                background: "#0a0a0a",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
-                fontSize: 9,
-                fontWeight: 500,
-                color: "white",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              }}
-            >
-              SWC
-            </span>
-          </span>
-
-          <span>ScaleWith</span>
-          <span style={{ color: "#ff0000" }}>Content</span>
 
           <span style={{ color: "#737373" }}>based in</span>
-          <span>
-            <span role="img" aria-label="Georgia flag">
-              &#x1F1EC;&#x1F1EA;
-            </span>{" "}
-            Georgia
-          </span>
-        </motion.div>
+          Tbilisi,
+
+          {/* Georgia map widget — mirrors reference map structure */}
+          <div
+            style={{
+              position: "relative",
+              top: 3,
+              marginLeft: 2,
+              marginRight: 2,
+              height: 44,
+              width: 56,
+              userSelect: "none",
+              overflow: "hidden",
+              borderRadius: 12,
+              boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+              flexShrink: 0,
+              display: "inline-block",
+              verticalAlign: "middle",
+            }}
+          >
+            {/* Map background — white theme */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(145deg, #fafaf8 0%, #f4f4f0 35%, #efefea 60%, #f5f5f2 100%)",
+              }}
+            />
+
+            {/* Animated cloud 1 */}
+            <div
+              style={{
+                position: "absolute",
+                top: -8,
+                width: 83,
+                height: 40,
+                background: "radial-gradient(ellipse, rgba(255,255,255,0.6) 0%, transparent 70%)",
+                animation: "map-clouds-1 15s linear -5s infinite",
+                transform: "translateX(-83px)",
+              }}
+            />
+            {/* Animated cloud 2 */}
+            <div
+              style={{
+                position: "absolute",
+                top: 16,
+                width: 83,
+                height: 40,
+                background: "radial-gradient(ellipse, rgba(255,255,255,0.5) 0%, transparent 70%)",
+                animation: "map-clouds-2 35s linear infinite",
+                transform: "translateX(56px)",
+              }}
+            />
+
+            {/* Border glow overlay — z-11 */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 1,
+                zIndex: 11,
+                borderRadius: 11,
+                boxShadow: "inset 0 0.75px 0.75px rgba(255,255,255,0.32)",
+                border: "1px solid rgba(255,255,255,0.16)",
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* Gradient depth overlays — z-12 */}
+            <div style={{ position: "absolute", inset: 0, zIndex: 12, borderRadius: 12, pointerEvents: "none" }}>
+              <div style={{ position: "absolute", left: 0, height: "100%", width: "50%", background: "linear-gradient(270deg, #000 0%, transparent 100%)", opacity: 0.04 }} />
+              <div style={{ position: "absolute", right: 0, height: "100%", width: "50%", background: "linear-gradient(90deg, transparent 0%, #fff 100%)", opacity: 0.32 }} />
+              <div style={{ position: "absolute", top: 0, left: 0, height: "50%", width: "100%", background: "linear-gradient(transparent 0%, rgba(120,80,0,1) 100%)", opacity: 0.08 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, height: "50%", width: "100%", background: "linear-gradient(rgba(255,255,255,1) 0%, transparent 100%)", opacity: 0.32 }} />
+            </div>
+
+            {/* Location dot + pulse rings — z-13 */}
+            <div
+              style={{
+                position: "absolute",
+                right: 1,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                zIndex: 13,
+              }}
+            >
+              {/* White glowing dot */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: 8,
+                  height: 8,
+                  borderRadius: 999,
+                  backdropFilter: "blur(2px)",
+                  WebkitBackdropFilter: "blur(2px)",
+                  background: "linear-gradient(#ffffffcc, #ffffffa3)",
+                  boxShadow: "inset 0 0 0 0.5px rgba(0,0,0,0.08)",
+                  zIndex: 10,
+                }}
+              />
+              {/* Pulse rings — neutral for white theme */}
+              {[-1, -2, -3].map((delay) => (
+                <div
+                  key={delay}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: 999,
+                    background: "rgba(0,0,0,0.05)",
+                    opacity: 0,
+                    animation: `map-pulse 3s linear ${delay}s infinite`,
+                    transform: "scale(0)",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Tbilisi / GE label — z-13 */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 6,
+                left: 8,
+                zIndex: 13,
+                fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
+                fontSize: 5,
+                lineHeight: "5px",
+                letterSpacing: "-0.05px",
+                pointerEvents: "none",
+              }}
+            >
+              <div style={{ fontWeight: 500, color: "rgba(30,25,20,0.85)", marginBottom: 2 }}>🇬🇪 Tbilisi</div>
+              <div style={{ color: "rgba(30,25,20,0.4)" }}>Georgia</div>
+            </div>
+          </div>
+
+          GE
+        </div>
 
         {/* ── Social links ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
+        <div
           ref={containerRef}
           style={{
             position: "relative",
             left: -12,
             marginTop: 40,
             display: "flex",
-            gap: "0 16px",
+            gap: 16,
           }}
         >
-          {/* Sliding pill */}
           <div
             style={{
               position: "absolute",
@@ -461,16 +587,13 @@ export default function LeomishinPage() {
               pointerEvents: "none",
             }}
           />
-
           {socialLinks.map((link, i) => (
             <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              ref={(el) => {
-                linkRefs.current[i] = el;
-              }}
+              ref={(el) => { linkRefs.current[i] = el; }}
               onMouseEnter={() => movePill(i)}
               onMouseLeave={() => movePill(null)}
               style={{
@@ -480,47 +603,39 @@ export default function LeomishinPage() {
                 padding: "3px 12px",
                 color: "#52525b",
                 textDecoration: "none",
+                transition: "color 500ms cubic-bezier(.6,.6,0,1)",
               }}
             >
               {link.label}
             </a>
           ))}
-        </motion.div>
+        </div>
 
         {/* ── Dots ── */}
         <Dots />
 
         {/* ── Bio ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25, ease: [0.23, 1, 0.32, 1] }}
-          style={{ color: "#52525b" }}
-        >
+        <div style={{ color: "#52525b" }}>
           <p style={{ marginBottom: 24 }}>
-            Building content systems that help B2B founders grow without paid ads. Over $1M tracked
-            in client revenue since 2023.
+            I build companies. Three in motion: mono.ge is reshaping how commerce works in Georgia.
+            Scale with Content turns founder expertise into compounding organic revenue. Merchant AI
+            is building the media layer for the next generation of sellers.
           </p>
           <p style={{ marginBottom: 24 }}>
-            YouTube-first strategy with LinkedIn and X for daily distribution. The whole thing
-            connected so content turns into booked calls.
+            The pattern I keep finding: industries where trust is the bottleneck and distribution
+            is the moat. Organic beats paid. Systems beat hustle. Ownership beats income.
           </p>
-          <p style={{ marginBottom: 24 }}>
-            No templates. No ghostwriting. No outsourcing. Every system built from scratch around
-            the founder&apos;s voice, offer, and audience.
+          <p>
+            Tbilisi is the base. Building is the work. Writing is how I think out loud.
           </p>
-        </motion.div>
+        </div>
 
         {/* ── Dots ── */}
         <Dots />
 
-        {/* ── Clients ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <p style={{ color: "#52525b", marginBottom: 40 }}>Past clients, new friends.</p>
+        {/* ── Projects ── */}
+        <div>
+          <p style={{ color: "#52525b", marginBottom: 40 }}>What I&apos;m building.</p>
           <div
             style={{
               display: "grid",
@@ -528,90 +643,101 @@ export default function LeomishinPage() {
               gap: 32,
             }}
           >
-            {clients.map((client) => (
-              <ClientCard key={client.name} client={client} />
+            {projects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* ── Dots ── */}
         <Dots />
 
         {/* ── Work Experience ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <div style={{ color: "#52525b", marginBottom: 40 }}>Work Experience</div>
-          {experience.map((entry) => (
-            <div
-              key={entry.company}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 40,
-              }}
-            >
+        <div>
+          <div style={{ color: "#52525b", marginBottom: 40 }}>Ventures</div>
+          <div style={{ display: "grid", gap: 40 }}>
+            {experience.map((entry) => (
               <div
-                style={{
-                  width: 96,
-                  flexShrink: 0,
-                  color: "#737373",
-                }}
+                key={entry.company}
+                style={{ display: "flex", alignItems: "center", gap: 40 }}
               >
-                {entry.period}
-              </div>
-              <div>
-                <span style={{ color: "#171717" }}>{entry.role} </span>
-                <a
-                  href={entry.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "#171717",
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <span
+                <div style={{ width: 96, flexShrink: 0, color: "#737373" }}>
+                  {entry.period}
+                </div>
+                <div>
+                  <span style={{ color: "#171717" }}>{entry.role} </span>
+                  <a
+                    href={entry.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
+                      color: "#171717",
+                      textDecoration: "none",
                       display: "inline-flex",
                       alignItems: "center",
-                      justifyContent: "center",
-                      width: 22,
-                      height: 22,
-                      borderRadius: 6,
-                      background: "#0a0a0a",
-                      flexShrink: 0,
+                      gap: 4,
+                      verticalAlign: "middle",
+                      position: "relative",
                     }}
+                    className="exp-link"
                   >
-                    <ExternalArrow size={12} color="white" />
-                  </span>
-                  <span
-                    style={{
-                      borderBottom: "1px solid transparent",
-                      transition: "border-color 200ms",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.target as HTMLSpanElement).style.borderColor = "#171717";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.target as HTMLSpanElement).style.borderColor = "transparent";
-                    }}
-                  >
-                    {entry.company}
-                  </span>
-                </a>
+                    <img
+                      src="/swc-icon.png"
+                      alt="ScaleWithContent"
+                      width={22}
+                      height={22}
+                      style={{ borderRadius: 4, display: "none" }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                    <span>{entry.company}</span>
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </div>
+        </div>
 
         {/* ── Dots ── */}
         <Dots />
+
+        {/* ── Handwriting / Quote ── */}
+        <div ref={quoteRef}>
+          <div
+            style={{
+              fontFamily: "var(--font-square-peg), ui-serif, Georgia, serif",
+              fontSize: 30,
+              lineHeight: "32px",
+              color: "#52525b",
+              minHeight: 32,
+              maxWidth: 288,
+              margin: "0 auto",
+              textAlign: "center",
+            }}
+          >
+            {quoteText}
+            {quoteText.length > 0 && quoteText.length < QUOTE.length && (
+              <span style={{ opacity: 0.5 }}>|</span>
+            )}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-square-peg), ui-serif, Georgia, serif",
+              fontSize: 24,
+              lineHeight: "28px",
+              color: "#a1a1aa",
+              marginBottom: 80,
+              marginTop: 8,
+              paddingRight: 12,
+              textAlign: "right",
+              minHeight: 28,
+            }}
+          >
+            {sigText}
+            {sigText.length > 0 && sigText.length < SIG.length && (
+              <span style={{ opacity: 0.5 }}>|</span>
+            )}
+          </div>
+        </div>
 
         {/* ── Footer ── */}
         <div
@@ -620,10 +746,11 @@ export default function LeomishinPage() {
             alignItems: "center",
             gap: "0 32px",
             fontSize: 14,
+            letterSpacing: "-0.14px",
           }}
         >
           <div style={{ width: 144, textAlign: "right", color: "#a1a1aa" }}>
-            &copy; 2025 Leo Mishin
+            &copy; 2026 Leo Mishin
           </div>
           <a
             href="https://scalewithcontent.com"
@@ -632,170 +759,21 @@ export default function LeomishinPage() {
             style={{
               color: "#a1a1aa",
               textDecoration: "none",
-              transition: "color 200ms",
+              transition: "filter 500ms",
             }}
             onMouseEnter={(e) => {
-              (e.target as HTMLAnchorElement).style.color = "#52525b";
+              (e.currentTarget as HTMLAnchorElement).style.filter = "saturate(1.3) brightness(0.8)";
             }}
             onMouseLeave={(e) => {
-              (e.target as HTMLAnchorElement).style.color = "#a1a1aa";
+              (e.currentTarget as HTMLAnchorElement).style.filter = "none";
             }}
           >
-            ScaleWithContent
+            Scale with Content
           </a>
+          <div style={{ marginLeft: "auto", color: "#a1a1aa" }}>Made with ❤️</div>
         </div>
       </div>
 
-      {/* ── Fixed Bottom Nav ── */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: 24,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1001,
-        }}
-        className="sm:!bottom-10"
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0 8px",
-            borderRadius: 999,
-            padding: 16,
-            background: "rgba(10,10,10,0.82)",
-            backdropFilter: "blur(6px)",
-            WebkitBackdropFilter: "blur(6px)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)",
-            fontSize: 14,
-            lineHeight: "20px",
-            letterSpacing: "-0.13px",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {/* Left group */}
-          <div
-            ref={navGroupRef}
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              gap: "0 2px",
-            }}
-          >
-            {/* Active pill */}
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                height: "100%",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.1)",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                transition: "left 300ms, width 300ms",
-                left: navPill.left,
-                width: navPill.width,
-                pointerEvents: "none",
-              }}
-            />
-
-            {/* About */}
-            <a
-              ref={aboutRef}
-              href="/"
-              style={{
-                position: "relative",
-                borderRadius: 999,
-                padding: "4px 14px",
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              About
-              {/* Active dot */}
-              <span
-                style={{
-                  position: "absolute",
-                  bottom: -8,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: 2,
-                  height: 2,
-                  borderRadius: 999,
-                  background: "white",
-                }}
-              />
-            </a>
-
-            {/* Separator dot */}
-            <span
-              style={{
-                width: 1,
-                height: 1,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.8)",
-                flexShrink: 0,
-              }}
-            />
-
-            {/* Work */}
-            <a
-              href="/"
-              style={{
-                position: "relative",
-                borderRadius: 999,
-                padding: "4px 14px",
-                color: "rgba(255,255,255,0.7)",
-                textDecoration: "none",
-                transition: "color 200ms",
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLAnchorElement).style.color = "white";
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLAnchorElement).style.color = "rgba(255,255,255,0.7)";
-              }}
-            >
-              Work
-            </a>
-          </div>
-
-          {/* Separator line */}
-          <div
-            style={{
-              height: 12,
-              width: 1,
-              background: "rgba(255,255,255,0.1)",
-              flexShrink: 0,
-            }}
-          />
-
-          {/* Contact */}
-          <a
-            href="mailto:hello@scalewithcontent.com?subject=Hey%20Leo"
-            style={{
-              marginLeft: 14,
-              borderRadius: 999,
-              padding: "4px 14px",
-              color: "rgba(255,255,255,0.8)",
-              background: "rgba(255,255,255,0.16)",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-              textDecoration: "none",
-              transition: "background 200ms",
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLAnchorElement).style.background = "rgba(255,255,255,0.24)";
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLAnchorElement).style.background = "rgba(255,255,255,0.16)";
-            }}
-          >
-            Contact
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

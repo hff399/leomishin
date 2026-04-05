@@ -1,12 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { EB_Garamond } from "next/font/google";
+import { Instrument_Serif, Square_Peg, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import NavBar from "./components/NavBar";
 
-const ebGaramond = EB_Garamond({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["400", "600"],
-  style: ["normal"],
-  variable: "--font-eb-garamond",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const squarePeg = Square_Peg({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-square-peg",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-ibm-plex-mono",
   display: "swap",
 });
 
@@ -16,13 +31,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Leo Mishin — Content Strategist & Founder",
+  title: "Leo Mishin — Entrepreneur",
   description:
-    "Building done-for-you content systems for B2B founders. Over $1M tracked in client revenue. 100% organic.",
+    "Building companies out of Tbilisi. mono.ge, Scale with Content, Merchant AI.",
   openGraph: {
-    title: "Leo Mishin — Content Strategist & Founder",
+    title: "Leo Mishin — Entrepreneur",
     description:
-      "Building done-for-you content systems for B2B founders. Over $1M tracked in client revenue. 100% organic.",
+      "Building companies out of Tbilisi. mono.ge, Scale with Content, Merchant AI.",
   },
 };
 
@@ -32,8 +47,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={ebGaramond.variable}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${squarePeg.variable} ${ibmPlexMono.variable}`}
+    >
+      <body>
+        {children}
+        <NavBar />
+      </body>
     </html>
   );
 }
