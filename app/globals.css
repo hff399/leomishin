@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* ─── PP Neue Montreal ─────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('https://framerusercontent.com/assets/yUScEiZtXZCqdRimefTfBx1Q4.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('https://framerusercontent.com/assets/6uIfYl8bnz9kOy3KOuV7PxhFPhA.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Hero gradient animation ──────────────────────────────────────────────── */
+@keyframes hero-gradient-anim {
+  0% { background-position: 0% 0; }
+  100% { background-position: -200% 0; }
+}
+.hero-gradient-text {
+  background: linear-gradient(90deg,#5cabd6,#806fd9,#d963e1,#f06195,#f0a655,#e6e047,#91e77b,#61e8ba,#5cabd6 92.445%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: hero-gradient-anim 10s linear infinite;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+}
