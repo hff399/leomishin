@@ -1,4 +1,4 @@
-import { config, fields, collection, component } from "@keystatic/core";
+import { config, fields, collection } from "@keystatic/core";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -38,23 +38,6 @@ export default config({
         date: fields.date({ label: "Date" }),
         content: fields.mdx({
           label: "Content",
-          components: {
-            BarChart: component({
-              label: "Bar Chart",
-              schema: {
-                caption: fields.text({ label: "Caption" }),
-                color: fields.text({ label: "Color", defaultValue: "#171717" }),
-                data: fields.array(
-                  fields.object({
-                    label: fields.text({ label: "Label" }),
-                    value: fields.number({ label: "Value" }),
-                  }),
-                  { label: "Data", itemLabel: (props) => props.fields.label.value }
-                ),
-              },
-              preview: () => null,
-            }),
-          },
         }),
       },
     }),
