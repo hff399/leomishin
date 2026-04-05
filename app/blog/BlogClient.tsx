@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { formatDate } from "@/lib/formatDate";
 import NewsletterSignup from "../components/NewsletterSignup";
 
 interface PostData {
@@ -11,11 +12,6 @@ interface PostData {
   category: string;
   date: string;
   readingTime: number;
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 function ArrowRight({ hovered }: { hovered: boolean }) {

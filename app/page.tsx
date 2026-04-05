@@ -2,6 +2,18 @@
 
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import PageLayout from "@/app/components/PageLayout";
+import Dots from "@/app/components/Dots";
+import {
+  COLOR_TEXT_PRIMARY,
+  COLOR_TEXT_SECONDARY,
+  COLOR_TEXT_MUTED,
+  COLOR_TEXT_SUBTLE,
+  COLOR_BORDER,
+  FONT_SANS,
+  FONT_SERIF,
+  FONT_MONO,
+} from "@/app/lib/tokens";
 
 /* ───────────────────────────── Data ──────────────────────────────────────── */
 
@@ -41,18 +53,6 @@ const experience = [
 const QUOTE = "AI is eating the world. Don't be eaten.";
 const SIG = "— Leo Mishin";
 
-/* ───────────────────────────── Dots ──────────────────────────────────────── */
-
-function Dots() {
-  return (
-    <div style={{ margin: "80px 0", display: "flex", gap: "6px" }}>
-      <div style={{ width: 2, height: 2, borderRadius: 999, background: "#a1a1aa" }} />
-      <div style={{ width: 2, height: 2, borderRadius: 999, background: "#a1a1aa" }} />
-      <div style={{ width: 2, height: 2, borderRadius: 999, background: "#a1a1aa" }} />
-    </div>
-  );
-}
-
 /* ──────────────────────────── Project Card ───────────────────────────────── */
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
@@ -90,7 +90,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           >
             <div
               style={{
-                fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
+                fontFamily: FONT_SERIF,
                 fontSize: 20,
                 color: "#f5f5f5",
                 lineHeight: "24px",
@@ -101,11 +101,11 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
             </div>
             <div
               style={{
-                fontFamily: "var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
+                fontFamily: FONT_MONO,
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.24px",
-                color: "#a1a1aa",
+                color: COLOR_TEXT_MUTED,
                 lineHeight: "20px",
               }}
             >
@@ -128,7 +128,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           height: 80,
           borderRadius: 16,
           transition: "background 500ms cubic-bezier(.6,.6,0,1)",
-          background: hovered ? "#e5e5e5" : "transparent",
+          background: hovered ? COLOR_BORDER : "transparent",
           position: "relative",
           textDecoration: "none",
         }}
@@ -139,7 +139,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
             position: "absolute",
             inset: 0,
             borderRadius: 16,
-            border: "1px solid #e5e5e5",
+            border: `1px solid ${COLOR_BORDER}`,
             pointerEvents: "none",
             zIndex: 2,
           }}
@@ -156,7 +156,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
+            fontFamily: FONT_SANS,
             fontSize: 10,
             fontWeight: 500,
             color: "#555",
@@ -186,7 +186,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
         >
           <path
             d="M7.5 12.5L13.5 6.5M13.5 6.5V11.5M13.5 6.5H8.5"
-            stroke="#a1a1aa"
+            stroke={COLOR_TEXT_MUTED}
             strokeWidth={1.2}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -253,85 +253,8 @@ export default function LeomishinPage() {
     return () => observer.disconnect();
   }, []);
 
-  /* Shared styles */
-  const baseFontStyle: React.CSSProperties = {
-    fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
-    fontSize: 14,
-    lineHeight: "24px",
-    letterSpacing: "-0.14px",
-    WebkitFontSmoothing: "antialiased",
-  };
-
-  const serifFont = "var(--font-instrument-serif), ui-serif, Georgia, serif";
-  const blurLayers = [1, 2, 3, 6, 8];
-
   return (
-    <div
-      style={{
-        ...baseFontStyle,
-        background: "#f5f5f5",
-        color: "#a1a1aa",
-        minHeight: "100vh",
-        position: "relative",
-        overflowX: "clip",
-      }}
-    >
-      {/* ── Top blur overlay ── */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 48,
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
-        {blurLayers.map((blur) => (
-          <div
-            key={`top-${blur}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backdropFilter: `blur(${blur}px)`,
-              WebkitBackdropFilter: `blur(${blur}px)`,
-              maskImage: "linear-gradient(#000 0%, #0000 100%)",
-              WebkitMaskImage: "linear-gradient(#000 0%, #0000 100%)",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Bottom blur overlay ── */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 96,
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
-        {blurLayers.map((blur) => (
-          <div
-            key={`btm-${blur}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backdropFilter: `blur(${blur}px)`,
-              WebkitBackdropFilter: `blur(${blur}px)`,
-              maskImage: "linear-gradient(#0000 0%, #000 100%)",
-              WebkitMaskImage: "linear-gradient(#0000 0%, #000 100%)",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Main content ── */}
-      <div style={{ maxWidth: 580, margin: "0 auto", padding: "0 24px 288px" }}>
+    <PageLayout showFooter={false}>
 
         {/* ── Hero ── */}
         <div
@@ -341,13 +264,13 @@ export default function LeomishinPage() {
             flexWrap: "wrap",
             columnGap: 8,
             alignItems: "baseline",
-            fontFamily: serifFont,
+            fontFamily: FONT_SERIF,
             fontSize: 36,
             lineHeight: "52px",
-            color: "#171717",
+            color: COLOR_TEXT_PRIMARY,
           }}
         >
-          <span style={{ color: "#737373" }}>Hey,</span>
+          <span style={{ color: COLOR_TEXT_SUBTLE }}>Hey,</span>
           <span>I&apos;m</span>
 
           {/* Avatar badge */}
@@ -418,7 +341,7 @@ export default function LeomishinPage() {
             </span>
           </span>
 
-          <span style={{ color: "#737373" }}>based in</span>
+          <span style={{ color: COLOR_TEXT_SUBTLE }}>based in</span>
           Tbilisi,
 
           {/* Georgia map widget — mirrors reference map structure */}
@@ -547,7 +470,7 @@ export default function LeomishinPage() {
                 bottom: 6,
                 left: 8,
                 zIndex: 13,
-                fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
+                fontFamily: FONT_SANS,
                 fontSize: 5,
                 lineHeight: "5px",
                 letterSpacing: "-0.05px",
@@ -579,7 +502,7 @@ export default function LeomishinPage() {
               top: 0,
               height: "100%",
               borderRadius: 999,
-              background: "#e5e5e5",
+              background: COLOR_BORDER,
               transition: "left 300ms, width 300ms, opacity 200ms",
               left: pill.left,
               width: pill.width,
@@ -601,7 +524,7 @@ export default function LeomishinPage() {
                 zIndex: 1,
                 borderRadius: 999,
                 padding: "3px 12px",
-                color: "#52525b",
+                color: COLOR_TEXT_SECONDARY,
                 textDecoration: "none",
                 transition: "color 500ms cubic-bezier(.6,.6,0,1)",
               }}
@@ -615,7 +538,7 @@ export default function LeomishinPage() {
         <Dots />
 
         {/* ── Bio ── */}
-        <div style={{ color: "#52525b" }}>
+        <div style={{ color: COLOR_TEXT_SECONDARY }}>
           <p style={{ marginBottom: 24 }}>
             I build companies. Three in motion: mono.ge is reshaping how commerce works in Georgia.
             Scale with Content turns founder expertise into compounding organic revenue. Merchant AI
@@ -635,7 +558,7 @@ export default function LeomishinPage() {
 
         {/* ── Projects ── */}
         <div>
-          <p style={{ color: "#52525b", marginBottom: 40 }}>What I&apos;m building.</p>
+          <p style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 40 }}>What I&apos;m building.</p>
           <div
             style={{
               display: "grid",
@@ -654,24 +577,24 @@ export default function LeomishinPage() {
 
         {/* ── Work Experience ── */}
         <div>
-          <div style={{ color: "#52525b", marginBottom: 40 }}>Ventures</div>
+          <div style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 40 }}>Ventures</div>
           <div style={{ display: "grid", gap: 40 }}>
             {experience.map((entry) => (
               <div
                 key={entry.company}
                 style={{ display: "flex", alignItems: "center", gap: 40 }}
               >
-                <div style={{ width: 96, flexShrink: 0, color: "#737373" }}>
+                <div style={{ width: 96, flexShrink: 0, color: COLOR_TEXT_SUBTLE }}>
                   {entry.period}
                 </div>
                 <div>
-                  <span style={{ color: "#171717" }}>{entry.role} </span>
+                  <span style={{ color: COLOR_TEXT_PRIMARY }}>{entry.role} </span>
                   <a
                     href={entry.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      color: "#171717",
+                      color: COLOR_TEXT_PRIMARY,
                       textDecoration: "none",
                       display: "inline-flex",
                       alignItems: "center",
@@ -707,7 +630,7 @@ export default function LeomishinPage() {
               fontFamily: "var(--font-square-peg), ui-serif, Georgia, serif",
               fontSize: 30,
               lineHeight: "32px",
-              color: "#52525b",
+              color: COLOR_TEXT_SECONDARY,
               minHeight: 32,
               maxWidth: 288,
               margin: "0 auto",
@@ -724,7 +647,7 @@ export default function LeomishinPage() {
               fontFamily: "var(--font-square-peg), ui-serif, Georgia, serif",
               fontSize: 24,
               lineHeight: "28px",
-              color: "#a1a1aa",
+              color: COLOR_TEXT_MUTED,
               marginBottom: 80,
               marginTop: 8,
               paddingRight: 12,
@@ -749,7 +672,7 @@ export default function LeomishinPage() {
             letterSpacing: "-0.14px",
           }}
         >
-          <div style={{ width: 144, textAlign: "right", color: "#a1a1aa" }}>
+          <div style={{ width: 144, textAlign: "right", color: COLOR_TEXT_MUTED }}>
             &copy; 2026 Leo Mishin
           </div>
           <a
@@ -757,7 +680,7 @@ export default function LeomishinPage() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#a1a1aa",
+              color: COLOR_TEXT_MUTED,
               textDecoration: "none",
               transition: "filter 500ms",
             }}
@@ -770,10 +693,8 @@ export default function LeomishinPage() {
           >
             Scale with Content
           </a>
-          <div style={{ marginLeft: "auto", color: "#a1a1aa" }}>Made with ❤️</div>
+          <div style={{ marginLeft: "auto", color: COLOR_TEXT_MUTED }}>Made with ❤️</div>
         </div>
-      </div>
-
-    </div>
+    </PageLayout>
   );
 }

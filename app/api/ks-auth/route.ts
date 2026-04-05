@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
   const pat = process.env.GITHUB_ACCESS_TOKEN;
   if (pat) {
     res.cookies.set("keystatic-gh-access-token", pat, {
+      httpOnly: true,
       secure: true,
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 30,
