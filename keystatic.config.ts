@@ -42,13 +42,11 @@ export default config({
               schema: {
                 caption: fields.text({ label: "Caption" }),
                 color: fields.text({ label: "Color", defaultValue: "#171717" }),
-                data: fields.array(
-                  fields.object({
-                    label: fields.text({ label: "Label" }),
-                    value: fields.number({ label: "Value" }),
-                  }),
-                  { label: "Data", itemLabel: (props) => props.fields.label.value }
-                ),
+                dataJson: fields.text({
+                  label: "Data (JSON)",
+                  description: 'e.g. [{"label":"Q1","value":42}]',
+                  multiline: true,
+                }),
               },
             }),
             LineChart: block({
@@ -56,13 +54,11 @@ export default config({
               schema: {
                 caption: fields.text({ label: "Caption" }),
                 color: fields.text({ label: "Color", defaultValue: "#171717" }),
-                data: fields.array(
-                  fields.object({
-                    label: fields.text({ label: "Label" }),
-                    value: fields.number({ label: "Value" }),
-                  }),
-                  { label: "Data", itemLabel: (props) => props.fields.label.value }
-                ),
+                dataJson: fields.text({
+                  label: "Data (JSON)",
+                  description: 'e.g. [{"label":"Jan","value":100}]',
+                  multiline: true,
+                }),
               },
             }),
             PostImage: block({
