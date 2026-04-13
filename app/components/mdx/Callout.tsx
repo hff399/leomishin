@@ -34,7 +34,7 @@ export default function Callout({ children, type = "info" }: CalloutProps) {
       {/* Body */}
       <div
         style={{
-          fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
+          fontFamily: "var(--font-eb-garamond), ui-serif, Georgia, serif",
           fontSize: 18,
           lineHeight: "28px",
           color: "#52525b",

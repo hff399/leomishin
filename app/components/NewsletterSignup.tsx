@@ -37,7 +37,7 @@ export default function NewsletterSignup() {
           >
             <div
               style={{
-                fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
+                fontFamily: "var(--font-eb-garamond), ui-serif, Georgia, serif",
                 fontSize: 26,
                 color: "#171717",
                 marginBottom: 6,
@@ -67,7 +67,7 @@ export default function NewsletterSignup() {
             {/* Heading */}
             <div
               style={{
-                fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
+                fontFamily: "var(--font-eb-garamond), ui-serif, Georgia, serif",
                 fontSize: 26,
                 color: "#171717",
                 marginBottom: 6,

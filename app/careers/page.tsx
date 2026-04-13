@@ -1,161 +1,161 @@
-"use client";
-
-import PageLayout from "@/app/components/PageLayout";
-import Dots from "@/app/components/Dots";
+import { Metadata } from "next";
 import {
-  COLOR_TEXT_PRIMARY,
-  COLOR_TEXT_SECONDARY,
-  COLOR_TEXT_MUTED,
-  COLOR_TEXT_SUBTLE,
-  COLOR_BORDER,
-  COLOR_BG_BADGE,
-  FONT_SERIF,
+  FONT_HEADING,
+  FONT_SANS,
+  COLOR_PRIMARY,
+  COLOR_FAINT,
+  COLOR_LINK,
 } from "@/app/lib/tokens";
 
-const roleHrefs: Record<string, string> = {
-  "Content Researcher": "/careers/content-researcher",
-  "Video Editor": "/careers/video-editor",
+export const metadata: Metadata = {
+  title: "Careers — Leo Mishin",
+  description:
+    "Join an ecosystem of new-money digital businesses. We're looking for potential entrepreneurs.",
 };
 
-const roles = [
-  {
-    title: "Content Researcher",
-    type: "Part-time \u00b7 Remote",
-    description:
-      "You find the angles others miss. Ideas, data, and narratives that make content worth stopping for \u2014 not because it\u2019s trending, but because it\u2019s true and timely.",
-    requirements: ["Strong written English", "Experience with B2B or tech topics", "Fast, async communicator"],
-  },
-  {
-    title: "Video Editor",
-    type: "Project-based \u00b7 Remote",
-    description:
-      "Long-form YouTube editing with the pacing instincts of a filmmaker. You know how to hold attention for 20 minutes in a world designed to steal it.",
-    requirements: ["Portfolio of YouTube-style edits", "Premiere Pro or DaVinci Resolve", "Turnaround under 3 business days"],
-  },
-];
+const TEXT_COLOR = "rgba(0, 0, 0, 0.72)";
 
-const values = [
-  { label: "Async first", text: "No status meetings. Results are the only status update that matters." },
-  { label: "Ownership, not execution", text: "You get the brief and the context. What you do with it is yours. We don\u2019t manage \u2014 we trust." },
-  { label: "Quality is the moat", text: "Every piece represents a brand someone spent years building. Good isn\u2019t enough. It has to be excellent." },
-  { label: "Think in systems", text: "We build infrastructure, not one-offs. If it can\u2019t scale, we don\u2019t build it." },
-];
+const bodyWrap: React.CSSProperties = {
+  fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
+  fontSize: 16,
+  letterSpacing: "-0.01em",
+  lineHeight: "1.7em",
+  color: TEXT_COLOR,
+  width: "100%",
+};
+
+const para: React.CSSProperties = { margin: "0 0 18px" };
+const paraLast: React.CSSProperties = { margin: 0 };
+
+const sectionHeading: React.CSSProperties = {
+  fontFamily: "var(--font-eb-garamond), 'EB Garamond', ui-serif, Georgia, serif",
+  fontSize: 22,
+  fontWeight: 600,
+  letterSpacing: "-0.02em",
+  lineHeight: "1.5em",
+  color: COLOR_PRIMARY,
+  margin: "0 0 10px",
+};
 
 export default function CareersPage() {
   return (
-    <PageLayout>
-      {/* Header */}
-      <div style={{ paddingTop: 80, marginBottom: 80 }}>
-        <h1
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "128px 24px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 650,
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        {/* ── Heading ── */}
+        <p
           style={{
-            fontFamily: FONT_SERIF,
-            fontSize: 36,
-            lineHeight: "52px",
-            color: COLOR_TEXT_PRIMARY,
-            margin: 0,
-            fontWeight: 400,
-          }}
-        >
-          Build with us.
-        </h1>
-        <p style={{ color: COLOR_TEXT_SECONDARY, marginTop: 16, marginBottom: 0 }}>
-          Small team. High leverage. We don&apos;t hire for roles — we hire for ownership.
-        </p>
-      </div>
-
-      {/* Open roles */}
-      <div style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 32 }}>Open roles</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {roles.map((role) => (
-          <a
-            key={role.title}
-            href={roleHrefs[role.title]}
-            style={{
-              display: "block",
-              border: `1px solid ${COLOR_BORDER}`,
-              borderRadius: 16,
-              padding: 24,
-              background: "transparent",
-              transition: "background 300ms",
-              textDecoration: "none",
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(0,0,0,0.02)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
-              <div style={{ color: COLOR_TEXT_PRIMARY, fontWeight: 500 }}>{role.title}</div>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: COLOR_TEXT_SUBTLE,
-                  background: COLOR_BG_BADGE,
-                  borderRadius: 999,
-                  padding: "2px 10px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {role.type}
-              </div>
-            </div>
-            <p style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 16, marginTop: 0 }}>{role.description}</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 4 }}>
-              {role.requirements.map((req) => (
-                <li key={req} style={{ color: COLOR_TEXT_SUBTLE, display: "flex", gap: 8, alignItems: "flex-start" }}>
-                  <span style={{ marginTop: 4, width: 3, height: 3, borderRadius: 999, background: COLOR_TEXT_MUTED, flexShrink: 0, display: "inline-block" }} />
-                  {req}
-                </li>
-              ))}
-            </ul>
-          </a>
-        ))}
-      </div>
-
-      <Dots />
-
-      {/* Values */}
-      <div style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 32 }}>How we work</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {values.map((v) => (
-          <div key={v.label} style={{ display: "flex", gap: 40 }}>
-            <div style={{ width: 120, flexShrink: 0, color: COLOR_TEXT_PRIMARY, fontWeight: 500 }}>{v.label}</div>
-            <div style={{ color: COLOR_TEXT_SECONDARY }}>{v.text}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <div style={{ margin: "80px 0 0", padding: 24, border: `1px solid ${COLOR_BORDER}`, borderRadius: 16, textAlign: "center" }}>
-        <div
-          style={{
-            fontFamily: FONT_SERIF,
+            fontFamily: FONT_HEADING,
             fontSize: 24,
-            color: COLOR_TEXT_PRIMARY,
-            marginBottom: 12,
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            color: COLOR_PRIMARY,
+            margin: "0 0 16px",
           }}
         >
-          Think you belong here?
-        </div>
-        <p style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 20, marginTop: 0 }}>
-          Send a short note: what you do, what you&apos;ve built, and why this matters to you.
+          Careers
         </p>
-        <a
-          href="mailto:hello@scalewithcontent.com?subject=Careers%20Inquiry"
+
+        {/* ── Intro ── */}
+        <div style={bodyWrap}>
+          <p style={paraLast}>
+            I&apos;m not building a traditional company. I&apos;m building an
+            ecosystem of new-money digital businesses — and I&apos;m looking for
+            the right people to build it with me.
+          </p>
+        </div>
+
+        {/* ── Who I'm Looking For ── */}
+        <div style={{ width: "100%", marginTop: 40 }}>
+          <p style={sectionHeading}>Who I&apos;m Looking For</p>
+          <div style={bodyWrap}>
+            <p style={para}>I don&apos;t hire based on r&eacute;sum&eacute;s. I hire based on values, vision, and vibe.</p>
+            <p style={para}>I&apos;m looking for potential entrepreneurs. Young, hungry people who see work as a craft, not a clock-in situation. You&apos;re hardworking not because someone&apos;s watching, but because you can&apos;t operate any other way.</p>
+            <p style={para}>You&apos;re respectful. You&apos;re bright. You&apos;re honest. You&apos;re a good person who understands that character matters as much as competence.</p>
+            <p style={paraLast}>If you&apos;re the type who wants to learn how businesses actually scale, who wants to be in the room where real decisions get made, who wants to build something that matters — not just collect a paycheck — then keep reading.</p>
+          </div>
+        </div>
+
+        {/* ── What you'll get from me ── */}
+        <div style={{ width: "100%", marginTop: 40 }}>
+          <p style={sectionHeading}>What you&apos;ll get from me</p>
+          <div style={bodyWrap}>
+            <p style={para}>I&apos;m the #1 most caring leader you can team up with.</p>
+            <p style={para}>Here&apos;s what that actually means: if you honestly try, if you do your best, if you show up with integrity and effort — I will make sure you get everything possible in return. Knowledge, opportunities, resources, support, growth — whatever you need to win, you&apos;ll get it from me.</p>
+            <p style={para}>I appreciate hard work and genuine effort more than almost anything else, and when I see it, I give back tenfold. This isn&apos;t a transactional workplace. We&apos;re one big family, and I take care of my people.</p>
+            <p style={paraLast}>This isn&apos;t lip service. It&apos;s how I operate. Because I know that the best teams are built when everyone genuinely looks out for each other and wins together.</p>
+          </div>
+        </div>
+
+        {/* ── What I'm building ── */}
+        <div style={{ width: "100%", marginTop: 40 }}>
+          <p style={sectionHeading}>What I&apos;m building</p>
+          <div style={bodyWrap}>
+            <p style={para}>An ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.</p>
+            <p style={para}>We&apos;re operating across multiple ventures:</p>
+            <p style={{ margin: "0 0 4px" }}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Iolipay</span> — Legal tech startup reshaping payments and compliance</p>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>ScaleWContent</span> — B2B YouTube agency turning content into client acquisition systems</p>
+            <p style={paraLast}>You won&apos;t be a cog in a machine here. You&apos;ll be building the machine.</p>
+          </div>
+        </div>
+
+        {/* ── What I value ── */}
+        <div style={{ width: "100%", marginTop: 40 }}>
+          <p style={sectionHeading}>What I value in people</p>
+          <div style={bodyWrap}>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Speed</span> — We move fast. Opportunities don&apos;t wait, and neither do we.</p>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Execution</span> — Ideas are worthless without implementation. We build, we test, we iterate, we scale.</p>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Integrity</span> — Your word is everything. If you say you&apos;ll do it, you do it. No excuses, no flaking, no politics.</p>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Hard Work</span> — There are no shortcuts to building something real. We put in the work.</p>
+            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Honesty</span> — We operate with transparency and truth. No games, no politics, no hidden agendas.</p>
+            <p style={paraLast}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Brilliance of the Mind</span> — Sharp thinking, creative problem-solving, and intellectual curiosity. We value people who think deeply and differently.</p>
+          </div>
+        </div>
+
+        {/* ── Video ── */}
+        <div style={{ width: "100%", aspectRatio: "651 / 501", overflow: "hidden", marginTop: 32, borderRadius: 2 }}>
+          <video
+            src="/videos/careers.mp4"
+            autoPlay muted loop playsInline
+            style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", objectPosition: "50% 50%" }}
+          />
+        </div>
+
+        {/* ── Footer ── */}
+        <p
           style={{
-            display: "inline-block",
-            background: COLOR_TEXT_PRIMARY,
-            color: "white",
-            borderRadius: 999,
-            padding: "8px 20px",
-            textDecoration: "none",
-            fontSize: 14,
-            transition: "opacity 200ms",
+            fontFamily: FONT_HEADING,
+            fontSize: 16,
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            textAlign: "center",
+            color: COLOR_FAINT,
+            width: "100%",
+            margin: "32px 0 0",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.8"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
         >
-          hello@scalewithcontent.com
-        </a>
+          &copy; Leonid Mishin 2026
+        </p>
       </div>
-    </PageLayout>
+    </div>
   );
 }

@@ -17,7 +17,7 @@ export interface BaseChartProps {
 
 export const MONO = "var(--font-ibm-plex-mono), ui-monospace, 'Courier New', monospace";
 export const SANS = "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif";
-export const SERIF = "var(--font-instrument-serif), ui-serif, Georgia, serif";
+export const SERIF = "var(--font-eb-garamond), ui-serif, Georgia, serif";
 
 // ─── Shared tooltip ───────────────────────────────────────────────────────────
 

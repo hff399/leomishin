@@ -4,6 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { formatDate } from "@/lib/formatDate";
 import NewsletterSignup from "../components/NewsletterSignup";
+import {
+  FONT_HEADING,
+  FONT_SANS,
+  COLOR_PRIMARY,
+  COLOR_MUTED,
+  COLOR_SECONDARY,
+  COLOR_BORDER,
+} from "@/app/lib/tokens";
 
 interface PostData {
   slug: string;
@@ -12,30 +20,6 @@ interface PostData {
   category: string;
   date: string;
   readingTime: number;
-}
-
-function ArrowRight({ hovered }: { hovered: boolean }) {
-  return (
-    <svg
-      width={16}
-      height={16}
-      viewBox="0 0 16 16"
-      fill="none"
-      style={{
-        transform: hovered ? "translateX(4px)" : "translateX(0)",
-        transition: "transform 300ms cubic-bezier(.6,.6,0,1)",
-        flexShrink: 0,
-      }}
-    >
-      <path
-        d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-        stroke="#a1a1aa"
-        strokeWidth={1.2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 function PostCard({ post }: { post: PostData }) {
@@ -48,73 +32,76 @@ function PostCard({ post }: { post: PostData }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div
-        style={{
-          padding: "32px 0",
-          borderBottom: "1px solid #e5e5e5",
-        }}
-      >
-        {/* Category + reading time */}
+      <div style={{ padding: "28px 0", borderBottom: `1px solid ${COLOR_BORDER}` }}>
         <div
           style={{
-            fontFamily: "var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: "0.24px",
-            color: "#a1a1aa",
+            fontFamily: FONT_SANS,
+            fontSize: 13,
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            color: COLOR_MUTED,
             lineHeight: "20px",
           }}
         >
-          {post.category} &middot; {post.readingTime} min read
+          {post.category} &middot; {post.readingTime} min
         </div>
 
-        {/* Title */}
         <div
           style={{
-            fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
-            fontSize: 22,
-            lineHeight: "30px",
-            color: "#171717",
-            marginTop: 8,
+            fontFamily: FONT_HEADING,
+            fontSize: 20,
+            lineHeight: "1.5em",
+            color: COLOR_PRIMARY,
+            marginTop: 6,
             fontWeight: 400,
           }}
         >
           {post.title}
         </div>
 
-        {/* Excerpt */}
         <div
           style={{
-            fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
-            fontSize: 14,
-            lineHeight: "24px",
-            letterSpacing: "-0.14px",
-            color: "#52525b",
-            marginTop: 8,
+            fontFamily: FONT_SANS,
+            fontSize: 15,
+            lineHeight: "1.6em",
+            letterSpacing: "-0.02em",
+            color: COLOR_SECONDARY,
+            marginTop: 6,
           }}
         >
           {post.excerpt}
         </div>
 
-        {/* Date + Arrow */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginTop: 16,
+            marginTop: 14,
           }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
-              fontSize: 12,
-              color: "#a1a1aa",
-            }}
-          >
+          <div style={{ fontFamily: FONT_SANS, fontSize: 13, color: COLOR_MUTED }}>
             {formatDate(post.date)}
           </div>
-          <ArrowRight hovered={hovered} />
+          <svg
+            width={16}
+            height={16}
+            viewBox="0 0 16 16"
+            fill="none"
+            style={{
+              transform: hovered ? "translateX(4px)" : "translateX(0)",
+              transition: "transform 300ms cubic-bezier(.22,1,.36,1)",
+              flexShrink: 0,
+            }}
+          >
+            <path
+              d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+              stroke={COLOR_MUTED}
+              strokeWidth={1.2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </div>
     </Link>
@@ -124,12 +111,11 @@ function PostCard({ post }: { post: PostData }) {
 export default function BlogClient({ posts }: { posts: PostData[] }) {
   return (
     <>
-      {/* Posts */}
       <div>
-        {posts.map((post) => <PostCard key={post.slug} post={post} />)}
+        {posts.map((post) => (
+          <PostCard key={post.slug} post={post} />
+        ))}
       </div>
-
-      {/* Newsletter */}
       <NewsletterSignup />
     </>
   );

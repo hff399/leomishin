@@ -1,11 +1,19 @@
-import PageLayout from "@/app/components/PageLayout";
+import { Metadata } from "next";
 import {
-  COLOR_TEXT_PRIMARY,
-  COLOR_TEXT_SECONDARY,
-  COLOR_TEXT_SUBTLE,
+  FONT_HEADING,
+  FONT_SANS,
+  COLOR_PRIMARY,
+  COLOR_SECONDARY,
+  COLOR_MUTED,
+  COLOR_FAINT,
   COLOR_BORDER,
-  FONT_SERIF,
 } from "@/app/lib/tokens";
+
+export const metadata: Metadata = {
+  title: "History — Leo Mishin",
+  description:
+    "How I went from zero to building multiple companies — and what I learned along the way.",
+};
 
 const timeline = [
   {
@@ -42,63 +50,140 @@ const timeline = [
 
 export default function HistoryPage() {
   return (
-    <PageLayout>
-      {/* Header */}
-      <div style={{ paddingTop: 80, marginBottom: 80 }}>
-        <h1
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "128px 24px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 650,
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: 10,
+        }}
+      >
+        {/* ── Heading ── */}
+        <p
           style={{
-            fontFamily: FONT_SERIF,
-            fontSize: 36,
-            lineHeight: "52px",
-            color: COLOR_TEXT_PRIMARY,
+            fontFamily: FONT_HEADING,
+            fontSize: 24,
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            color: COLOR_PRIMARY,
             margin: 0,
-            fontWeight: 400,
           }}
         >
           My story.
-        </h1>
-        <p style={{ color: COLOR_TEXT_SECONDARY, marginTop: 16, marginBottom: 0 }}>
-          How I went from zero to building multiple companies — and what I learned along the way.
         </p>
-      </div>
 
-      {/* Timeline */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        {timeline.map((entry, i) => (
-          <div
-            key={entry.year}
-            style={{
-              display: "flex",
-              gap: 40,
-              paddingBottom: i < timeline.length - 1 ? 48 : 0,
-              position: "relative",
-            }}
-          >
-            {/* Left: year + line */}
-            <div style={{ width: 64, flexShrink: 0, position: "relative" }}>
-              <div style={{ color: COLOR_TEXT_SUBTLE, paddingTop: 2 }}>{entry.year}</div>
-              {i < timeline.length - 1 && (
+        <p
+          style={{
+            fontFamily: FONT_SANS,
+            fontSize: 18,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            color: COLOR_FAINT,
+            margin: 0,
+          }}
+        >
+          How I went from zero to building multiple companies — and what I
+          learned along the way.
+        </p>
+
+        {/* ── Timeline ── */}
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            marginTop: 30,
+            fontFamily: FONT_SANS,
+            fontSize: 15,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+          }}
+        >
+          {timeline.map((entry, i) => (
+            <div
+              key={entry.year}
+              style={{
+                display: "flex",
+                gap: 32,
+                paddingBottom: i < timeline.length - 1 ? 40 : 0,
+                position: "relative",
+              }}
+            >
+              {/* Year + line */}
+              <div style={{ width: 48, flexShrink: 0, position: "relative" }}>
                 <div
                   style={{
-                    position: "absolute",
-                    top: 28,
-                    left: 0,
-                    width: 1,
-                    bottom: -48,
-                    background: `linear-gradient(${COLOR_BORDER} 0%, transparent 100%)`,
+                    color: COLOR_MUTED,
+                    fontSize: 13,
+                    fontWeight: 500,
+                    paddingTop: 1,
                   }}
-                />
-              )}
-            </div>
+                >
+                  {entry.year}
+                </div>
+                {i < timeline.length - 1 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 24,
+                      left: 0,
+                      width: 1,
+                      bottom: 0,
+                      background: `linear-gradient(${COLOR_BORDER} 0%, transparent 100%)`,
+                    }}
+                  />
+                )}
+              </div>
 
-            {/* Right: content */}
-            <div style={{ flex: 1 }}>
-              <div style={{ color: COLOR_TEXT_PRIMARY, marginBottom: 8, fontSize: 14, fontWeight: 500 }}>{entry.title}</div>
-              <div style={{ color: COLOR_TEXT_SECONDARY }}>{entry.body}</div>
+              {/* Content */}
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    color: COLOR_PRIMARY,
+                    fontSize: 15,
+                    fontWeight: 500,
+                    marginBottom: 6,
+                  }}
+                >
+                  {entry.title}
+                </div>
+                <div style={{ color: COLOR_SECONDARY }}>{entry.body}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* ── Footer ── */}
+        <p
+          style={{
+            fontFamily: FONT_HEADING,
+            fontSize: 18,
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            textAlign: "center",
+            color: COLOR_FAINT,
+            width: "100%",
+            margin: "60px 0 0",
+          }}
+        >
+          &copy; Leonid Mishin 2026
+        </p>
       </div>
-    </PageLayout>
+    </div>
   );
 }

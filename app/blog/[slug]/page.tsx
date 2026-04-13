@@ -5,19 +5,19 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug, formatDate, extractHeadings } from "@/lib/blog";
 import NewsletterSignup from "@/app/components/NewsletterSignup";
 import TableOfContents from "@/app/components/TableOfContents";
-import PageLayout from "@/app/components/PageLayout";
 import BarChart from "@/app/components/mdx/BarChart";
 import LineChart from "@/app/components/mdx/LineChart";
 import Callout from "@/app/components/mdx/Callout";
 import PostImage from "@/app/components/mdx/PostImage";
 import YouTubeEmbed from "@/app/components/mdx/YouTubeEmbed";
 import {
-  COLOR_TEXT_PRIMARY,
-  COLOR_TEXT_SECONDARY,
-  COLOR_TEXT_MUTED,
+  FONT_HEADING,
+  FONT_SANS,
+  COLOR_PRIMARY,
+  COLOR_SECONDARY,
+  COLOR_MUTED,
+  COLOR_FAINT,
   COLOR_BORDER,
-  FONT_SERIF,
-  FONT_MONO,
 } from "@/app/lib/tokens";
 
 export const revalidate = 60;
@@ -27,7 +27,11 @@ export async function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
@@ -55,103 +59,134 @@ const mdxComponents = {
   YouTubeEmbed,
 };
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-
   if (!post) notFound();
 
   const headings = extractHeadings(post.content);
 
   return (
-    <PageLayout maxWidth={960} showFooter={false}>
-      {/* Back link */}
-      <div style={{ paddingTop: 80, marginBottom: 40 }}>
-        <Link
-          href="/blog"
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: 12,
-            color: COLOR_TEXT_MUTED,
-            textDecoration: "none",
-            transition: "color 200ms",
-          }}
-          onMouseEnter={undefined}
-        >
-          ← Writing
-        </Link>
-      </div>
-
-      {/* Post header */}
-      <div style={{ maxWidth: 660 }}>
-        <div
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: "0.24px",
-            color: COLOR_TEXT_MUTED,
-            lineHeight: "20px",
-          }}
-        >
-          {post.category} &middot; {post.readingTime} min read &middot; {formatDate(post.date)}
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "128px 24px 80px",
+      }}
+    >
+      <div style={{ maxWidth: 960, width: "100%" }}>
+        {/* ── Back ── */}
+        <div style={{ marginBottom: 40 }}>
+          <Link
+            href="/blog"
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 13,
+              fontWeight: 500,
+              color: COLOR_MUTED,
+              textDecoration: "none",
+            }}
+          >
+            &larr; Blog
+          </Link>
         </div>
-        <h1
-          style={{
-            fontFamily: FONT_SERIF,
-            fontSize: 40,
-            lineHeight: 1.15,
-            color: COLOR_TEXT_PRIMARY,
-            marginTop: 12,
-            marginBottom: 0,
-            fontWeight: 400,
-          }}
-        >
-          {post.title}
-        </h1>
+
+        {/* ── Header ── */}
+        <div style={{ maxWidth: 660 }}>
+          <div
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 13,
+              fontWeight: 500,
+              letterSpacing: "-0.01em",
+              color: COLOR_MUTED,
+              lineHeight: "20px",
+            }}
+          >
+            {post.category} &middot; {post.readingTime} min &middot; {formatDate(post.date)}
+          </div>
+          <h1
+            style={{
+              fontFamily: FONT_HEADING,
+              fontSize: 36,
+              lineHeight: 1.3,
+              color: COLOR_PRIMARY,
+              marginTop: 12,
+              marginBottom: 0,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {post.title}
+          </h1>
+          <p
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 18,
+              lineHeight: "1.6em",
+              letterSpacing: "-0.02em",
+              color: COLOR_SECONDARY,
+              marginTop: 14,
+              marginBottom: 0,
+            }}
+          >
+            {post.excerpt}
+          </p>
+        </div>
+
+        <div style={{ height: 1, background: COLOR_BORDER, margin: "36px 0", maxWidth: 660 }} />
+
+        {/* ── Content + TOC ── */}
+        <div style={{ display: "flex", alignItems: "flex-start" }}>
+          <div className="blog-prose" style={{ flex: 1, maxWidth: 660, minWidth: 0 }}>
+            <MDXRemote source={post.content} components={mdxComponents} />
+          </div>
+          <TableOfContents headings={headings} />
+        </div>
+
+        <div style={{ maxWidth: 660 }}>
+          <NewsletterSignup />
+        </div>
+
+        <div style={{ marginTop: 48, maxWidth: 660 }}>
+          <Link
+            href="/blog"
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 13,
+              fontWeight: 500,
+              color: COLOR_MUTED,
+              textDecoration: "none",
+            }}
+          >
+            &larr; Back to Blog
+          </Link>
+        </div>
+
         <p
           style={{
-            fontSize: 16,
-            lineHeight: "28px",
-            color: COLOR_TEXT_SECONDARY,
-            marginTop: 16,
-            marginBottom: 0,
+            fontFamily: FONT_HEADING,
+            fontSize: 18,
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            textAlign: "center",
+            color: COLOR_FAINT,
+            width: "100%",
+            margin: "64px 0 0",
           }}
         >
-          {post.excerpt}
+          &copy; Leonid Mishin 2026
         </p>
       </div>
-
-      {/* Separator */}
-      <div style={{ height: 1, background: COLOR_BORDER, margin: "36px 0", maxWidth: 660 }} />
-
-      {/* Content row: article + TOC */}
-      <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <div className="blog-prose" style={{ flex: 1, maxWidth: 660, minWidth: 0 }}>
-          <MDXRemote source={post.content} components={mdxComponents} />
-        </div>
-        <TableOfContents headings={headings} />
-      </div>
-
-      {/* Newsletter */}
-      <div style={{ maxWidth: 660, marginTop: 0 }}>
-        <NewsletterSignup />
-      </div>
-
-      {/* Back link bottom */}
-      <div style={{ marginTop: 48, maxWidth: 660 }}>
-        <Link
-          href="/blog"
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: 12,
-            color: COLOR_TEXT_MUTED,
-            textDecoration: "none",
-          }}
-        >
-          ← Back to Writing
-        </Link>
-      </div>
-    </PageLayout>
+    </div>
   );
 }

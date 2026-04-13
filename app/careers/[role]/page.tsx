@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import PageLayout from "@/app/components/PageLayout";
+import Link from "next/link";
 import {
-  COLOR_TEXT_PRIMARY,
-  COLOR_TEXT_SECONDARY,
-  COLOR_TEXT_SUBTLE,
-  COLOR_TEXT_MUTED,
-  COLOR_BG_BADGE,
+  FONT_HEADING,
+  FONT_SANS,
+  COLOR_PRIMARY,
+  COLOR_SECONDARY,
+  COLOR_MUTED,
+  COLOR_FAINT,
   COLOR_BORDER,
-  FONT_SERIF,
 } from "@/app/lib/tokens";
 
 interface RoleData {
@@ -80,7 +80,7 @@ export async function generateMetadata({
   if (!data) return {};
   return {
     title: `${data.title} — Careers — Leo Mishin`,
-    description: `Apply for the ${data.title} role at Scale with Content.`,
+    description: `Apply for the ${data.title} role.`,
   };
 }
 
@@ -94,190 +94,251 @@ export default async function CareerRolePage({
   if (!data) notFound();
 
   return (
-    <PageLayout footerTrailing="Tbilisi, GE">
-      {/* Back link */}
-      <div style={{ paddingTop: 80, marginBottom: 48 }}>
-        <a
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "128px 24px 80px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 650,
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: 10,
+        }}
+      >
+        {/* ── Back ── */}
+        <Link
           href="/careers"
           style={{
-            color: COLOR_TEXT_SUBTLE,
+            fontFamily: FONT_SANS,
+            fontSize: 13,
+            fontWeight: 500,
+            color: COLOR_MUTED,
             textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
+            marginBottom: 20,
           }}
         >
-          <svg width={14} height={14} viewBox="0 0 20 20" fill="none">
-            <path
-              d="M12.5 7.5L6.5 13.5M6.5 13.5V8.5M6.5 13.5H11.5"
-              stroke="currentColor"
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Back to careers
-        </a>
-      </div>
+          &larr; Careers
+        </Link>
 
-      {/* Header */}
-      <div style={{ marginBottom: 48 }}>
+        {/* ── Badge ── */}
         <div
           style={{
+            fontFamily: FONT_SANS,
             fontSize: 12,
-            color: COLOR_TEXT_SUBTLE,
-            background: COLOR_BG_BADGE,
+            fontWeight: 500,
+            color: COLOR_MUTED,
+            background: "rgba(0,0,0,0.04)",
             borderRadius: 999,
-            padding: "2px 10px",
-            display: "inline-block",
-            marginBottom: 16,
+            padding: "3px 12px",
           }}
         >
           {data.type}
         </div>
+
+        {/* ── Title ── */}
         <h1
           style={{
-            fontFamily: FONT_SERIF,
-            fontSize: 36,
-            lineHeight: "52px",
-            color: COLOR_TEXT_PRIMARY,
+            fontFamily: FONT_HEADING,
+            fontSize: 32,
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.4em",
+            color: COLOR_PRIMARY,
             margin: 0,
-            fontWeight: 400,
           }}
         >
           {data.title}
         </h1>
-      </div>
 
-      {/* Description */}
-      <div style={{ marginBottom: 48 }}>
-        <div style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 24 }}>
-          {data.descriptionHeading}
-        </div>
-        {data.paragraphs.map((p, i) => (
-          <p
-            key={i}
-            style={{
-              color: COLOR_TEXT_SECONDARY,
-              marginTop: 0,
-              marginBottom: i < data.paragraphs.length - 1 ? 16 : 0,
-            }}
-          >
-            {p}
-          </p>
-        ))}
-      </div>
-
-      {/* Spacer dots */}
-      <div style={{ margin: "48px 0", display: "flex", gap: 6 }}>
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={{
-              width: 2,
-              height: 2,
-              borderRadius: 999,
-              background: COLOR_TEXT_MUTED,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Requirements */}
-      <div style={{ marginBottom: 48 }}>
-        <div style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 24 }}>
-          Requirements
-        </div>
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-          }}
-        >
-          {data.requirements.map((req) => (
-            <li
-              key={req}
-              style={{
-                color: COLOR_TEXT_SECONDARY,
-                display: "flex",
-                gap: 10,
-                alignItems: "flex-start",
-              }}
-            >
-              <span
-                style={{
-                  marginTop: 9,
-                  width: 3,
-                  height: 3,
-                  borderRadius: 999,
-                  background: COLOR_TEXT_MUTED,
-                  flexShrink: 0,
-                  display: "inline-block",
-                }}
-              />
-              {req}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Spacer dots */}
-      <div style={{ margin: "48px 0", display: "flex", gap: 6 }}>
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={{
-              width: 2,
-              height: 2,
-              borderRadius: 999,
-              background: COLOR_TEXT_MUTED,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* How to apply */}
-      <div
-        style={{
-          padding: 24,
-          border: `1px solid ${COLOR_BORDER}`,
-          borderRadius: 16,
-          textAlign: "center",
-        }}
-      >
+        {/* ── Description ── */}
         <div
           style={{
-            fontFamily: FONT_SERIF,
-            fontSize: 24,
-            color: COLOR_TEXT_PRIMARY,
-            marginBottom: 12,
+            width: "100%",
+            marginTop: 20,
+            fontFamily: FONT_SANS,
+            fontSize: 15,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
           }}
         >
-          How to apply
+          <div
+            style={{
+              color: COLOR_MUTED,
+              fontSize: 13,
+              fontWeight: 500,
+              marginBottom: 16,
+              textTransform: "uppercase",
+              letterSpacing: "0.02em",
+            }}
+          >
+            {data.descriptionHeading}
+          </div>
+          {data.paragraphs.map((p, i) => (
+            <p
+              key={i}
+              style={{
+                color: COLOR_SECONDARY,
+                marginTop: 0,
+                marginBottom: i < data.paragraphs.length - 1 ? 16 : 0,
+              }}
+            >
+              {p}
+            </p>
+          ))}
         </div>
-        <p style={{ color: COLOR_TEXT_SECONDARY, marginBottom: 20, marginTop: 0 }}>
-          {data.applyText}
-        </p>
-        <a
-          href={`mailto:hello@scalewithcontent.com?subject=${data.emailSubject}`}
+
+        {/* ── Separator ── */}
+        <div
           style={{
-            display: "inline-block",
-            background: COLOR_TEXT_PRIMARY,
-            color: "white",
-            borderRadius: 999,
-            padding: "8px 20px",
-            textDecoration: "none",
-            fontSize: 14,
-            transition: "opacity 200ms",
+            width: "100%",
+            height: 1,
+            background: COLOR_BORDER,
+            margin: "30px 0",
+          }}
+        />
+
+        {/* ── Requirements ── */}
+        <div
+          style={{
+            width: "100%",
+            fontFamily: FONT_SANS,
+            fontSize: 15,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
           }}
         >
-          hello@scalewithcontent.com
-        </a>
+          <div
+            style={{
+              color: COLOR_MUTED,
+              fontSize: 13,
+              fontWeight: 500,
+              marginBottom: 16,
+              textTransform: "uppercase",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Requirements
+          </div>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              margin: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            {data.requirements.map((req) => (
+              <li
+                key={req}
+                style={{
+                  color: COLOR_SECONDARY,
+                  display: "flex",
+                  gap: 10,
+                  alignItems: "flex-start",
+                }}
+              >
+                <span
+                  style={{
+                    marginTop: 9,
+                    width: 3,
+                    height: 3,
+                    borderRadius: 999,
+                    background: COLOR_MUTED,
+                    flexShrink: 0,
+                  }}
+                />
+                {req}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* ── Separator ── */}
+        <div
+          style={{
+            width: "100%",
+            height: 1,
+            background: COLOR_BORDER,
+            margin: "30px 0",
+          }}
+        />
+
+        {/* ── How to apply ── */}
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <p
+            style={{
+              fontFamily: FONT_HEADING,
+              fontSize: 22,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              color: COLOR_PRIMARY,
+              margin: "0 0 10px",
+            }}
+          >
+            How to apply
+          </p>
+          <p
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 15,
+              letterSpacing: "-0.02em",
+              lineHeight: "1.6em",
+              color: COLOR_SECONDARY,
+              margin: "0 0 20px",
+            }}
+          >
+            {data.applyText}
+          </p>
+          <a
+            href={`mailto:hello@scalewithcontent.com?subject=${data.emailSubject}`}
+            style={{
+              display: "inline-flex",
+              height: 40,
+              alignItems: "center",
+              borderRadius: 9999,
+              background: COLOR_PRIMARY,
+              padding: "0 20px",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "white",
+              textDecoration: "none",
+              fontFamily: FONT_SANS,
+              transition: "opacity 200ms",
+            }}
+          >
+            hello@scalewithcontent.com
+          </a>
+        </div>
+
+        {/* ── Footer ── */}
+        <p
+          style={{
+            fontFamily: FONT_HEADING,
+            fontSize: 18,
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            lineHeight: "1.6em",
+            textAlign: "center",
+            color: COLOR_FAINT,
+            width: "100%",
+            margin: "60px 0 0",
+          }}
+        >
+          &copy; Leonid Mishin 2026
+        </p>
       </div>
-    </PageLayout>
+    </div>
   );
 }

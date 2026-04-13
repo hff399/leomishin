@@ -1,10 +1,12 @@
 import { config, fields, collection } from "@keystatic/core";
 import { block } from "@keystatic/core/content-components";
 
-const isProd = process.env.NODE_ENV === "production";
+const useGitHub =
+  process.env.NODE_ENV === "production" &&
+  !!process.env.KEYSTATIC_GITHUB_CLIENT_ID;
 
 export default config({
-  storage: isProd
+  storage: useGitHub
     ? { kind: "github", repo: { owner: "hff399", name: "leomishin" } }
     : { kind: "local" },
   ui: {

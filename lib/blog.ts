@@ -2,8 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-export type Category = "All" | "Thoughts" | "Essays" | "Biz Takes" | "Market Predictions";
-
 export interface Post {
   slug: string;
   title: string;
@@ -73,7 +71,6 @@ export function getPostBySlug(slug: string): Post | null {
 
 export { formatDate } from "./formatDate";
 
-export const CATEGORIES: Category[] = ["All", "Thoughts", "Essays", "Biz Takes", "Market Predictions"];
 
 export interface Heading {
   id: string;

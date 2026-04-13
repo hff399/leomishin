@@ -32,7 +32,7 @@ export default function KeystaticLogin() {
     <div
       style={{
         minHeight: "100vh",
-        background: "#f5f5f5",
+        background: "#fff",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -42,7 +42,7 @@ export default function KeystaticLogin() {
       <div style={{ width: 320 }}>
         <div
           style={{
-            fontFamily: "var(--font-instrument-serif), ui-serif, Georgia, serif",
+            fontFamily: "var(--font-eb-garamond), ui-serif, Georgia, serif",
             fontSize: 26,
             color: "#171717",
             marginBottom: 8,

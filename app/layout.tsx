@@ -1,20 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Square_Peg, IBM_Plex_Mono } from "next/font/google";
+import { EB_Garamond, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 
-const instrumentSerif = Instrument_Serif({
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "600"],
   style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
-
-const squarePeg = Square_Peg({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-square-peg",
+  variable: "--font-eb-garamond",
   display: "swap",
 });
 
@@ -31,13 +24,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Leo Mishin — Entrepreneur",
+  title: "Leo Mishin",
   description:
-    "Building companies out of Tbilisi. mono.ge, Scale with Content, Merchant AI.",
+    "Building an ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.",
   openGraph: {
-    title: "Leo Mishin — Entrepreneur",
+    title: "Leo Mishin",
     description:
-      "Building companies out of Tbilisi. mono.ge, Scale with Content, Merchant AI.",
+      "Building an ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.",
   },
 };
 
@@ -49,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${squarePeg.variable} ${ibmPlexMono.variable}`}
+      className={`${ebGaramond.variable} ${ibmPlexMono.variable}`}
     >
       <body>
         {children}
