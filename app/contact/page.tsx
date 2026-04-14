@@ -14,8 +14,8 @@ import {
 const channels = [
   {
     label: "Email",
-    value: "hello@scalewithcontent.com",
-    href: "mailto:hello@scalewithcontent.com?subject=Hey%20Leo",
+    value: "leo@leomishin.com",
+    href: "mailto:leo@leomishin.com?subject=Hey%20Leo",
   },
   {
     label: "Twitter",
@@ -38,7 +38,7 @@ export default function ContactPage() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("hello@scalewithcontent.com").then(() => {
+    navigator.clipboard.writeText("leo@leomishin.com").then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 marginBottom: 2,
               }}
             >
-              hello@scalewithcontent.com
+              leo@leomishin.com
             </div>
             <div style={{ color: COLOR_MUTED, fontSize: 13 }}>
               Click to copy

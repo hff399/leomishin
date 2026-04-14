@@ -302,7 +302,7 @@ export default async function CareerRolePage({
             {data.applyText}
           </p>
           <a
-            href={`mailto:hello@scalewithcontent.com?subject=${data.emailSubject}`}
+            href={`mailto:leo@leomishin.com?subject=${data.emailSubject}`}
             style={{
               display: "inline-flex",
               height: 40,
@@ -318,7 +318,7 @@ export default async function CareerRolePage({
               transition: "opacity 200ms",
             }}
           >
-            hello@scalewithcontent.com
+            leo@leomishin.com
           </a>
         </div>
 

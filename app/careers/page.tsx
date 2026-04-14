@@ -1,41 +1,51 @@
 import { Metadata } from "next";
 import {
   FONT_HEADING,
+  FONT_BODY,
   FONT_SANS,
   COLOR_PRIMARY,
   COLOR_FAINT,
-  COLOR_LINK,
+  COLOR_MUTED,
+  COLOR_BORDER,
 } from "@/app/lib/tokens";
 
 export const metadata: Metadata = {
   title: "Careers — Leo Mishin",
   description:
-    "Join an ecosystem of new-money digital businesses. We're looking for potential entrepreneurs.",
+    "Work with me. We're looking for generalists — A-players who learn fast, own outcomes, and operate across disciplines.",
 };
 
 const TEXT_COLOR = "rgba(0, 0, 0, 0.72)";
 
-const bodyWrap: React.CSSProperties = {
+const para: React.CSSProperties = { margin: "0 0 18px" };
+const paraLast: React.CSSProperties = { margin: 0 };
+
+const sectionLabel: React.CSSProperties = {
   fontFamily: "'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif",
+  fontSize: 12,
+  fontWeight: 500,
+  letterSpacing: "0.06em",
+  textTransform: "uppercase" as const,
+  color: "rgba(0, 0, 0, 0.35)",
+  margin: "0 0 16px",
+};
+
+const bodyWrap: React.CSSProperties = {
+  fontFamily: "'Ancizar Serif', ui-serif, Georgia, serif",
   fontSize: 16,
   letterSpacing: "-0.01em",
-  lineHeight: "1.7em",
+  lineHeight: "1.75em",
   color: TEXT_COLOR,
   width: "100%",
 };
 
-const para: React.CSSProperties = { margin: "0 0 18px" };
-const paraLast: React.CSSProperties = { margin: 0 };
-
-const sectionHeading: React.CSSProperties = {
-  fontFamily: "var(--font-eb-garamond), 'EB Garamond', ui-serif, Georgia, serif",
-  fontSize: 22,
-  fontWeight: 600,
-  letterSpacing: "-0.02em",
-  lineHeight: "1.5em",
-  color: COLOR_PRIMARY,
-  margin: "0 0 10px",
-};
+const values = [
+  { label: "Generalists", text: "Good at many things, exceptional at one. You learn across disciplines because the best work happens at the intersections." },
+  { label: "Ownership", text: "You get context, not instructions. What you do with it defines the role." },
+  { label: "Speed", text: "Opportunities have a half-life. We move before the window closes." },
+  { label: "Craft", text: "The difference between good and great is the extra pass. We take it." },
+  { label: "Integrity", text: "Say what you mean, do what you say. No politics, no games." },
+];
 
 export default function CareersPage() {
   return (
@@ -47,114 +57,254 @@ export default function CareersPage() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "128px 24px",
+        padding: "128px 24px 80px",
       }}
     >
       <div
         style={{
-          maxWidth: 650,
+          maxWidth: 620,
           width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
         }}
       >
-        {/* ── Heading ── */}
-        <p
+        {/* ── Header ── */}
+        <h1
           style={{
             fontFamily: FONT_HEADING,
             fontSize: 24,
             fontWeight: 600,
             letterSpacing: "-0.02em",
-            lineHeight: "1.6em",
+            lineHeight: "1.5em",
             color: COLOR_PRIMARY,
-            margin: "0 0 16px",
+            margin: "0 0 24px",
           }}
         >
-          Careers
-        </p>
+          Work with us
+        </h1>
 
-        {/* ── Intro ── */}
         <div style={bodyWrap}>
+          <p style={para}>
+            We run three companies across legal tech, content, and software.
+            Small teams, high leverage. Every person shapes the outcome.
+          </p>
           <p style={paraLast}>
-            I&apos;m not building a traditional company. I&apos;m building an
-            ecosystem of new-money digital businesses — and I&apos;m looking for
-            the right people to build it with me.
+            We&apos;re looking for generalists — A-players who don&apos;t fit
+            into one box. People who learn across disciplines, connect ideas
+            that don&apos;t usually sit together, and care more about solving
+            the problem than protecting their job title.
           </p>
         </div>
 
-        {/* ── Who I'm Looking For ── */}
-        <div style={{ width: "100%", marginTop: 40 }}>
-          <p style={sectionHeading}>Who I&apos;m Looking For</p>
+        {/* ── Who we're looking for ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p style={sectionLabel}>Who we&apos;re looking for</p>
           <div style={bodyWrap}>
-            <p style={para}>I don&apos;t hire based on r&eacute;sum&eacute;s. I hire based on values, vision, and vibe.</p>
-            <p style={para}>I&apos;m looking for potential entrepreneurs. Young, hungry people who see work as a craft, not a clock-in situation. You&apos;re hardworking not because someone&apos;s watching, but because you can&apos;t operate any other way.</p>
-            <p style={para}>You&apos;re respectful. You&apos;re bright. You&apos;re honest. You&apos;re a good person who understands that character matters as much as competence.</p>
-            <p style={paraLast}>If you&apos;re the type who wants to learn how businesses actually scale, who wants to be in the room where real decisions get made, who wants to build something that matters — not just collect a paycheck — then keep reading.</p>
+            <p style={para}>
+              The best people we&apos;ve worked with aren&apos;t defined by one
+              skill. They&apos;re good at many things and exceptional at one.
+              They pick up new tools in days, not months. They see the whole
+              system, not just their corner of it.
+            </p>
+            <p style={para}>
+              You don&apos;t wait to be told what to do. You see what needs
+              doing, you figure out how, and you ship it. You treat every piece
+              of work like it has your name on it — because it does.
+            </p>
+            <p style={paraLast}>
+              Character matters as much as competence. We operate on trust,
+              transparency, and direct feedback. No politics. No hierarchy for
+              the sake of hierarchy.
+            </p>
           </div>
         </div>
 
-        {/* ── What you'll get from me ── */}
-        <div style={{ width: "100%", marginTop: 40 }}>
-          <p style={sectionHeading}>What you&apos;ll get from me</p>
+        {/* ── What we're building ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p style={sectionLabel}>What we&apos;re building</p>
           <div style={bodyWrap}>
-            <p style={para}>I&apos;m the #1 most caring leader you can team up with.</p>
-            <p style={para}>Here&apos;s what that actually means: if you honestly try, if you do your best, if you show up with integrity and effort — I will make sure you get everything possible in return. Knowledge, opportunities, resources, support, growth — whatever you need to win, you&apos;ll get it from me.</p>
-            <p style={para}>I appreciate hard work and genuine effort more than almost anything else, and when I see it, I give back tenfold. This isn&apos;t a transactional workplace. We&apos;re one big family, and I take care of my people.</p>
-            <p style={paraLast}>This isn&apos;t lip service. It&apos;s how I operate. Because I know that the best teams are built when everyone genuinely looks out for each other and wins together.</p>
+            <p style={para}>
+              <span style={{ color: COLOR_PRIMARY, fontWeight: 500, fontFamily: FONT_SANS, fontSize: 14 }}>mono.ge</span>
+              {" "}— Legal platform for Georgia. Company registration, tax,
+              compliance, residence permits. Software replacing paperwork.
+            </p>
+            <p style={para}>
+              <span style={{ color: COLOR_PRIMARY, fontWeight: 500, fontFamily: FONT_SANS, fontSize: 14 }}>Scale with Content</span>
+              {" "}— YouTube agency for B2B founders. Strategy, production,
+              growth. Turning founder expertise into organic revenue.
+            </p>
+            <p style={paraLast}>
+              <span style={{ color: COLOR_PRIMARY, fontWeight: 500, fontFamily: FONT_SANS, fontSize: 14 }}>MLNxDev</span>
+              {" "}— AI integration and full-stack development for small
+              businesses. Web apps, automation, tooling.
+            </p>
           </div>
         </div>
 
-        {/* ── What I'm building ── */}
-        <div style={{ width: "100%", marginTop: 40 }}>
-          <p style={sectionHeading}>What I&apos;m building</p>
-          <div style={bodyWrap}>
-            <p style={para}>An ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.</p>
-            <p style={para}>We&apos;re operating across multiple ventures:</p>
-            <p style={{ margin: "0 0 4px" }}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Iolipay</span> — Legal tech startup reshaping payments and compliance</p>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>ScaleWContent</span> — B2B YouTube agency turning content into client acquisition systems</p>
-            <p style={paraLast}>You won&apos;t be a cog in a machine here. You&apos;ll be building the machine.</p>
+        {/* ── What we value ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p style={sectionLabel}>What we value</p>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {values.map((v, i) => (
+              <div
+                key={v.label}
+                style={{
+                  display: "flex",
+                  gap: 24,
+                  padding: "16px 0",
+                  borderTop: `1px solid ${COLOR_BORDER}`,
+                  borderBottom:
+                    i === values.length - 1
+                      ? `1px solid ${COLOR_BORDER}`
+                      : "none",
+                  fontFamily: FONT_SANS,
+                  fontSize: 14,
+                  lineHeight: "1.6em",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                <span
+                  style={{
+                    width: 88,
+                    flexShrink: 0,
+                    fontWeight: 500,
+                    color: COLOR_PRIMARY,
+                  }}
+                >
+                  {v.label}
+                </span>
+                <span style={{ color: TEXT_COLOR }}>{v.text}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* ── What I value ── */}
-        <div style={{ width: "100%", marginTop: 40 }}>
-          <p style={sectionHeading}>What I value in people</p>
+        {/* ── How we work ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p style={sectionLabel}>How we work</p>
           <div style={bodyWrap}>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Speed</span> — We move fast. Opportunities don&apos;t wait, and neither do we.</p>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Execution</span> — Ideas are worthless without implementation. We build, we test, we iterate, we scale.</p>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Integrity</span> — Your word is everything. If you say you&apos;ll do it, you do it. No excuses, no flaking, no politics.</p>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Hard Work</span> — There are no shortcuts to building something real. We put in the work.</p>
-            <p style={para}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Honesty</span> — We operate with transparency and truth. No games, no politics, no hidden agendas.</p>
-            <p style={paraLast}><span style={{ color: COLOR_PRIMARY, fontWeight: 500 }}>Brilliance of the Mind</span> — Sharp thinking, creative problem-solving, and intellectual curiosity. We value people who think deeply and differently.</p>
+            <p style={para}>
+              We&apos;re a family and a sports team. We look out for each other,
+              we push each other, and we hold each other to a high standard.
+              When someone wins, we all win.
+            </p>
+            <p style={paraLast}>
+              You&apos;ll have direct access to decision-making. Context on the
+              full business, not just your task list. The people who build these
+              companies grow with them — real equity, real opportunity, real
+              skin in the game.
+            </p>
           </div>
+        </div>
+
+        {/* ── Apply ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p style={sectionLabel}>Interested?</p>
+          <div style={bodyWrap}>
+            <p style={{ margin: "0 0 20px" }}>
+              Send a short note: what you do, what you&apos;ve built, and which
+              venture interests you. We read everything.
+            </p>
+          </div>
+          <a
+            href="mailto:leo@leomishin.com?subject=Careers"
+            style={{
+              display: "inline-flex",
+              height: 36,
+              alignItems: "center",
+              borderRadius: 9999,
+              background: COLOR_PRIMARY,
+              padding: "0 18px",
+              fontSize: 13,
+              fontWeight: 500,
+              color: "white",
+              textDecoration: "none",
+              fontFamily: FONT_SANS,
+            }}
+          >
+            leo@leomishin.com
+          </a>
         </div>
 
         {/* ── Video ── */}
-        <div style={{ width: "100%", aspectRatio: "651 / 501", overflow: "hidden", marginTop: 32, borderRadius: 2 }}>
+        <div
+          style={{
+            width: "100%",
+            aspectRatio: "651 / 501",
+            overflow: "hidden",
+            borderRadius: 2,
+            marginTop: 48,
+          }}
+        >
           <video
             src="/videos/careers.mp4"
-            autoPlay muted loop playsInline
-            style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", objectPosition: "50% 50%" }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "block",
+              objectFit: "cover",
+              objectPosition: "50% 50%",
+            }}
           />
         </div>
 
         {/* ── Footer ── */}
-        <p
+        <div
           style={{
-            fontFamily: FONT_HEADING,
-            fontSize: 16,
-            fontWeight: 400,
-            letterSpacing: "-0.02em",
-            lineHeight: "1.6em",
-            textAlign: "center",
-            color: COLOR_FAINT,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
             width: "100%",
-            margin: "32px 0 0",
+            marginTop: 32,
           }}
         >
-          &copy; Leonid Mishin 2026
-        </p>
+          <p style={{ fontFamily: FONT_SANS, fontSize: 12, color: COLOR_FAINT, margin: 0 }}>
+            &copy; 2026 Leo Mishin
+          </p>
+          <a
+            href="https://mlnx.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              position: "relative",
+              display: "inline-flex",
+              overflow: "hidden",
+              borderRadius: 9999,
+              padding: 3,
+              textDecoration: "none",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/gradient-banking.png"
+              alt=""
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            <span
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                borderRadius: 9999,
+                background: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                padding: "4px 12px",
+                fontFamily: FONT_SANS,
+                fontSize: 12,
+                fontWeight: 500,
+                color: COLOR_PRIMARY,
+              }}
+            >
+              Developed by MLNx dev
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   );

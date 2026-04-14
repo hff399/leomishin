@@ -46,6 +46,11 @@
   font-display: swap;
 }
 
+/* ─── Link hover ──────────────────────────────────────────────────────────── */
+.social-link:hover {
+  color: #000 !important;
+}
+
 /* ─── Base resets ─────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -79,30 +84,6 @@ html, body {
   }
 }
 
-/* ─── Navbar responsive ───────────────────────────────────────────────────── */
-.nav-desktop-links {
-  display: none !important;
-}
-.nav-desktop-contact {
-  display: none !important;
-}
-.nav-mobile-right {
-  display: flex !important;
-}
-@media (min-width: 768px) {
-  .nav-desktop-links {
-    display: flex !important;
-  }
-  .nav-desktop-contact {
-    display: flex !important;
-  }
-  .nav-mobile-right {
-    display: none !important;
-  }
-  .nav-mobile-menu {
-    display: none !important;
-  }
-}
 
 /* ─── TOC sidebar ─────────────────────────────────────────────────────────── */
 .toc-sidebar {

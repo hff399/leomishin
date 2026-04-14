@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   title: "Leo Mishin",
   description:
     "Building an ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Leo Mishin",
     description:

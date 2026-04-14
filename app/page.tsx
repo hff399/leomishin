@@ -5,18 +5,52 @@ import {
   FONT_SANS,
   COLOR_PRIMARY,
   COLOR_FAINT,
+  COLOR_MUTED,
+  COLOR_BORDER,
   COLOR_LINK,
 } from "@/app/lib/tokens";
 
 export const metadata: Metadata = {
   title: "Leo Mishin",
   description:
-    "Building an ecosystem of new-money digital businesses — rich on cashflow, high in enterprise value, and built to scale without breaking.",
+    "18-year-old entrepreneur. Co-founder of mono.ge, founder of Scale with Content and MLNxDev.",
 };
 
-const bodyStyle: React.CSSProperties = {
-  margin: "0 0 20px",
-};
+const TEXT_COLOR = "rgba(0, 0, 0, 0.72)";
+
+const para: React.CSSProperties = { margin: "0 0 20px" };
+const paraLast: React.CSSProperties = { margin: 0 };
+
+const ventures = [
+  {
+    name: "mono.ge",
+    role: "Co-founder · CTO / CPO / CMO",
+    description:
+      "Full-stack legal platform for Georgia. Company registration, tax, accounting, residence permits, compliance — rebuilt from the ground up with software.",
+    href: "https://mono.ge",
+  },
+  {
+    name: "Scale with Content",
+    role: "Founder",
+    description:
+      "YouTube-first agency for B2B founders. Helped Denis Shatalin generate $52K in YouTube-attributed revenue and grow his personal brand 2.6x in a few months.",
+    href: "http://swc-landing-production.up.railway.app/",
+  },
+  {
+    name: "MLNxDev",
+    role: "Founder",
+    description:
+      "AI integration and full-stack development for small businesses. Web apps, automation, and AI tooling — built fast, built to last.",
+    href: "https://mlnx.dev",
+  },
+];
+
+const socials = [
+  { label: "Twitter", href: "https://twitter.com/leomishin" },
+  { label: "YouTube", href: "https://youtube.com/@leomishin" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/leomishin" },
+  { label: "Email", href: "mailto:leo@leomishin.com" },
+];
 
 export default function HomePage() {
   return (
@@ -28,12 +62,12 @@ export default function HomePage() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "128px 24px",
+        padding: "128px 24px 80px",
       }}
     >
       <div
         style={{
-          maxWidth: 650,
+          maxWidth: 620,
           width: "100%",
           display: "flex",
           flexDirection: "column",
@@ -41,107 +75,148 @@ export default function HomePage() {
         }}
       >
         {/* ── Name ── */}
-        <p
+        <h1
           style={{
             fontFamily: FONT_HEADING,
             fontSize: 24,
             fontWeight: 600,
             letterSpacing: "-0.02em",
-            lineHeight: "1.6em",
+            lineHeight: "1.5em",
             color: COLOR_PRIMARY,
-            margin: "0 0 16px",
+            margin: "0 0 24px",
           }}
         >
           Leo Mishin
-        </p>
+        </h1>
 
-        {/* ── Body text ── */}
+        {/* ── Bio ── */}
         <div
           style={{
             fontFamily: FONT_BODY,
             fontSize: 17,
             letterSpacing: "-0.01em",
-            lineHeight: "1.7em",
-            color: "rgba(0, 0, 0, 0.72)",
+            lineHeight: "1.75em",
+            color: TEXT_COLOR,
             width: "100%",
           }}
         >
-          <p style={bodyStyle}>
-            I&apos;m Leo Mishin, and I&apos;m on a vision to build an ecosystem
-            of new-money digital businesses — rich on cashflow, high in
-            enterprise value, and built to scale without breaking.
+          <p style={para}>
+            I&apos;m 18. I&apos;m an entrepreneur.
           </p>
 
-          <p style={bodyStyle}>
-            Over the past 3+ years, I&apos;ve been in the trenches building
-            exactly that. I launched a cold email agency from scratch that
-            generated $240K in client revenue.
+          <p style={para}>
+            At mono.ge, I&apos;m co-founder and CTO/CPO/CMO — we&apos;re
+            rebuilding how legal services work in Georgia. Company registration,
+            tax, compliance, residence permits — one platform replacing twenty
+            middlemen. I joined as CMO in August 2025 and moved to co-founder
+            within months.
           </p>
 
-          <p style={bodyStyle}>
-            24.08.2025 I became CMO and equite holder at Iolipay — a legal tech
-            startup where we&apos;re reshaping how businesses handle payments and
-            compliance, solving real problems that directly impact bottom lines.
+          <p style={para}>
+            At Scale with Content, I built a YouTube agency that generated $52K
+            in attributed revenue for Denis Shatalin and grew his brand 2.6x in
+            a few months. We turn founder expertise into organic distribution
+            that compounds.
           </p>
 
-          <p style={bodyStyle}>
-            Right now, I&apos;m scaling:
-            <br />
-            ScaleWContent (B2B YouTube agency)
-            <br />
-            Medved VPN (the most robust VPN service)
-            <br />
-            Sando AI (helpdesk + AI agent that works perfect with georgian
-            language)
-            <br />
-            <a
-              href="https://mlndev.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: COLOR_LINK,
-                textDecoration: "underline",
-                textUnderlineOffset: 3,
-              }}
-            >
-              MLN dev
-            </a>
+          <p style={para}>
+            At MLNxDev, I run an AI integration and full-stack development
+            agency for small businesses — web apps, automation, and tooling
+            that actually ships.
           </p>
 
-          <p style={bodyStyle}>
-            Here&apos;s what drives everything I build: cashflow first,
-            enterprise value second, and systems that work without you having to
-            babysit them.
+          <p style={para}>
+            Before all of this: I wrote my first code at seven, shipped SaaS
+            products by fifteen, then built a cold email agency that generated
+            $240K in pipeline for B2B SaaS companies. Every failure taught me
+            the same lesson — distribution beats product. Systems beat hustle.
           </p>
 
-          <p style={bodyStyle}>
-            I operate on two principles: be unique and move with speed. You
-            can&apos;t win playing the same game as everyone else, and you
-            can&apos;t capitalize on opportunities if you&apos;re moving slow.
-          </p>
-
-          <p style={{ margin: 0 }}>
-            Outside of work, you&apos;ll find me in the gym, snowboarding, in
-            nature, or exploring the world.
+          <p style={paraLast}>
+            I don&apos;t pick one lane. I build across disciplines because
+            the best solutions come from connecting ideas that don&apos;t
+            usually sit together.
           </p>
         </div>
 
-        {/* ── Careers link ── */}
-        <div style={{ padding: "28px 0" }}>
-          <a
-            href="/careers"
+        {/* ── Ventures ── */}
+        <div style={{ width: "100%", marginTop: 56 }}>
+          <p
             style={{
               fontFamily: FONT_SANS,
+              fontSize: 12,
               fontWeight: 500,
-              fontSize: 15,
-              letterSpacing: "-0.02em",
-              color: COLOR_LINK,
-              textDecoration: "underline",
-              textUnderlineOffset: 3,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              color: COLOR_MUTED,
+              margin: "0 0 20px",
             }}
           >
-            Careers
-          </a>
+            Current ventures
+          </p>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {ventures.map((v, i) => (
+              <a
+                key={v.name}
+                href={v.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block",
+                  padding: "20px 0",
+                  borderTop: `1px solid ${COLOR_BORDER}`,
+                  borderBottom:
+                    i === ventures.length - 1
+                      ? `1px solid ${COLOR_BORDER}`
+                      : "none",
+                  textDecoration: "none",
+                  transition: "opacity 150ms",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "space-between",
+                    gap: 12,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: FONT_SANS,
+                      fontSize: 15,
+                      fontWeight: 500,
+                      color: COLOR_PRIMARY,
+                    }}
+                  >
+                    {v.name}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: FONT_SANS,
+                      fontSize: 12,
+                      color: COLOR_MUTED,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {v.role}
+                  </span>
+                </div>
+                <p
+                  style={{
+                    fontFamily: FONT_SANS,
+                    fontSize: 14,
+                    lineHeight: "1.6em",
+                    letterSpacing: "-0.01em",
+                    color: TEXT_COLOR,
+                    margin: "6px 0 0",
+                  }}
+                >
+                  {v.description}
+                </p>
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* ── Video ── */}
@@ -151,6 +226,7 @@ export default function HomePage() {
             aspectRatio: "651 / 501",
             overflow: "hidden",
             borderRadius: 2,
+            marginTop: 48,
           }}
         >
           <video
@@ -169,22 +245,102 @@ export default function HomePage() {
           />
         </div>
 
-        {/* ── Footer ── */}
-        <p
+        {/* ── Socials ── */}
+        <div
           style={{
-            fontFamily: FONT_HEADING,
-            fontSize: 16,
-            fontWeight: 400,
-            letterSpacing: "-0.02em",
-            lineHeight: "1.6em",
-            textAlign: "center",
-            color: COLOR_FAINT,
-            width: "100%",
-            margin: "32px 0 0",
+            display: "flex",
+            gap: 20,
+            marginTop: 48,
+            fontFamily: FONT_SANS,
+            fontSize: 13,
+            fontWeight: 500,
           }}
         >
-          &copy; Leonid Mishin 2026
-        </p>
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target={s.href.startsWith("mailto") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              className="social-link"
+              style={{
+                color: COLOR_MUTED,
+                textDecoration: "none",
+                transition: "color 200ms",
+              }}
+            >
+              {s.label}
+            </a>
+          ))}
+        </div>
+
+        {/* ── Footer ── */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            marginTop: 48,
+          }}
+        >
+          <p
+            style={{
+              fontFamily: FONT_SANS,
+              fontSize: 12,
+              color: COLOR_FAINT,
+              margin: 0,
+            }}
+          >
+            &copy; 2026 Leo Mishin
+          </p>
+
+          <a
+            href="https://mlnx.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              position: "relative",
+              display: "inline-flex",
+              overflow: "hidden",
+              borderRadius: 9999,
+              padding: 3,
+              textDecoration: "none",
+              transition: "opacity 200ms",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/gradient-banking.png"
+              alt=""
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <span
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                borderRadius: 9999,
+                background: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                padding: "4px 12px",
+                fontFamily: FONT_SANS,
+                fontSize: 12,
+                fontWeight: 500,
+                color: COLOR_PRIMARY,
+              }}
+            >
+              Developed by MLNx dev
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   );
